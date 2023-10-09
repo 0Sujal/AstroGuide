@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Strange & Terrifying Planets</title>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+        <style type="text/css">
+            #main{
+    position:fixed;
+    left:0; top:0;
+    width:100%; height:100%;
+    background:url("https://imgur.com/HsQ9lfI.jpg");
+    background-position:center;
+    background-size:cover;
+    margin:0;
+    transition:all 5s;
+}
+
+#text{
+    position:absolute;
+    width:90%; height:auto;
+    background:rgba(10, 10, 10, 0.6);
+    bottom:5%; left:5%;
+    color:#eeeeee;
+    border-radius:5px 2.5em 2.5em 2.5em;
+    border:1px dotted rgba(250, 250, 250, 0.3);
+    max-height:36vh;
+}
+
+#allTexts::-webkit-scrollbar, #text::-webkit-scrollbar {
+  display: none;
+}
+
+#text p{
+    margin-left:2.5em;
+    margin-right:2.5em;
+}
+
+#b{
+    position:absolute;
+    left:50%; top:0;
+    transform:translate(-50%);
+    background:rgba(70,70,70,0.5);
+    font-size:100%;
+    letter-spacing:1px;
+    color:#dddddd;
+    outline:none;
+    animation-iteration-count:infinite;
+    animation-name:space;
+    animation-duration:3s;
+    display:none;
+    transition:opacity 1s;
+    width:90%;
+    border:none;
+    border-radius:0 0 4vh 4vh;
+    padding:3px;
+}
+
+@keyframes space{
+    50%{
+        letter-spacing:2px;
+    }
+}
+
+.planets{
+    position:fixed;
+    left:50%; top:35%;
+    height:50%; width:auto;
+    transform:translate(-50%, -50%) scale(0);
+    transition:transform 2s, opacity 0.25s;
+    animation-name:planet;
+    animation-duration:3s;
+    animation-iteration-count:infinite;
+    user-select:none;
+}
+
+@keyframes planet{
+    50%{
+        top:34%;
+    }
+}
+
+#astronaut{
+    position:absolute;
+    height:5em;
+    top:-5em; left:-1.2em;
+    z-index:99;
+    user-select:none;
+}
+
+body{
+    font-family: 'Roboto Mono', monospace;
+}
+
+#allTexts{
+    overflow-y:scroll;
+    max-height:calc(36vh - 2em);
+}
+
+#sistem{
+    position:fixed;
+    left:0; bottom:0;
+    width:100%;
+    height:4.8%;
+    background:rgba(250,250,250,0.3);
+    display:flex;
+    flex-direction:row;
+    justify-content:space-around;
+    vertical-align:central;
+    user-select:none;
+}
+
+.element{
+    display:flex;
+    height:90%;
+}
+        </style>
+    </head>
+    <body>
+        <!--
+            Created by Alex Tușinean
+            
+            Finish Date: 10.08.2020
+            
+            Publish Date: 12.08.2020
+            
+            If you are looking for a short and funny code, then you are in the wrong place, Here I have a long and informative code about a few Interesting And Terrifying Planets.
+            
+            There are 10 planets to discover
+            
+            Double click to skip texts intro
+            
+            Most of the planet information are long, so make sure to scroll.
+            
+            I am pretty sure that at leat 75% of viewers won't check the code until the end, so for the ones viewing it all, May the Force be with You.
+            
+            (You know that feeling when you send a funny 3 minutes video to someone and the reply comes in 20 seconds.)
+            
+            Main source of information: https://www.boredpanda.com/strangest-weirdest-interesting-exoplanets-space/?utm_source=google&utm_medium=organic&utm_campaign=organic
+        -->
+        <div id = "main">
+            <img src = "https://imgur.com/yQHdR3H.jpg" class = "planets" id = "pl1">
+            <img src = "https://imgur.com/Byyn35R.jpg" class = "planets" id = "pl2">
+            <img src = "https://imgur.com/oEJ4PKE.jpg" class = "planets" id = "pl3">
+            <img src = "https://imgur.com/oxxnsbe.jpg" class = "planets" id = "pl4">
+            <img src = "https://imgur.com/nhWALzg.jpg" class = "planets" id = "pl5">
+            <img src = "https://imgur.com/joUysFT.jpg" class = "planets" id = "pl6">
+            <img src = "https://imgur.com/Wwxhbjd.jpg" class = "planets" id = "pl7">
+            <img src = "https://imgur.com/rwdpkqA.jpg" class = "planets" id = "pl8">
+            <img src = "https://imgur.com/YK4pzL0.jpg" class = "planets" id = "pl9">
+            <img src = "https://imgur.com/E9cfy0K.jpg" class = "planets" id = "pl10">
+            <img src = "https://imgur.com/kfZW2uC.jpg" class = "planets" id = "pl11">
+            <div id = "sistem">
+                
+            </div>
+            <div id = "text">
+                <img src = "https://imgur.com/llDjd1M.jpg" id = "astronaut">
+                <p id = "allTexts"></p>
+            </div>
+        </div>
+        <button id = "b">Tap anywhere to continue</button>
+        <script type="text/javascript">
+            var main_text = "Hello there. My name is Sugam. Are you ready for the journey of your life? Here we go...🚀";
+
+var text2 = "The first planet we are visiting is Gliese 581c. It is an exoplanet located 20 light years from Earth in the constellation of Libra. The planet orbits its star at a distance of 10.9 million kilometers, only 7% of the distance between the Earth and the Sun. Gliese 581c is tidally locked, meaning that one side of the planet always faces the star and the other side never does.  The near side is experiencing scorching temperatures which would instantly melt you alive, while the far side experiences freezing temperatures that would instantly turn you into a frozen snowman. Between these two extremes, however, is a narrow strip of land with better conditions that could theoretically support alien life. In 2008, we sent a radio message at Gliese 581c which is expected to reach the planet in 2029.";
+
+var text3 = "This is the most likely known candidate for being an ocean planet. GJ 1214b has no land, but only oceans that stretch all over the surface. If it is a water world, it could possibly be thought of as a bigger and hotter version of Jupiter's Galilean moon Europa.";
+
+var text4 = "Gliese 436b is an exoplanet located 30 light years from Earth in the constellation of Leo and seems to defy the laws of Physics. This planet orbits its star at a distance 15 times closer than Mercury is to the sun and the icy surface is roasting at a temperature of 439 °C (822 °F). So how does ice of all things remain completely solid at 439 degrees above its melting point? Because the gravity is so incredibly strong that it compresses the trace amounts of water vapor in the planet's atmosphere into solid ice and prevents it from melting, no matter how much it burns. One orbit around the star takes only about 2 days, 15.5 hours.";
+
+var text5 = "The next planet we are visiting is HAT-P-7b. This special planet is located in the Cygnus constellation, about 1000 light years away from Earth. On the night side of this exoplanet, high precipitation of aluminium oxide (corundum) is found in the atmosphere. Because corundum gems are rubies and sapphires, one can describe the hypothetical weather on the planet's night side as 'raining rubies & sapphires'. The planet also suffers from violent storms, so it’s likely that these rubies and sapphires are scattered planet-wide.";
+
+var text6 = "HD 189773b is slightly larger than Jupiter in our solar system, and is located about 62 light years away from Earth. The planet gets its deep, beautiful azure color from the planet’s strange atmosphere which is actually made up mostly of silicate atoms and particles. The wind speeds on the planet can actually reach as high as 5,400 miles per hour, which is actually around 2 kilometers per second (or over seven times faster than the speed of sound). Temperatures can also reach way over 900 °C (1652 °F) on the planet. What is horrid and frightening about this planet is that it literally rains glass sideways along with unbearably fast winds. If this exact storm were somehow to occur at the equator on Earth, it would travel all the way around the Earth in just a mere five and a half hours.";
+
+var text7 = "55 Cancri E is only about 40 light-years away from us in the Cancer constellation. It is twice the size of Earth but is nearly 8 times more massive and twice as dense. The parent star has much more carbon than our own sun, and the mass of the planet is thought to be largely carbon. Due to the pressure and average maximum surface temperature of 4417 °F (2400 °C), this 'super-Earth' is believed to be covered with diamonds. It is so close to its parent star it takes a mere 18 hours for the planet to complete a full orbit.";
+
+var text8 = "WASP-12b is one of the darkest known exoplanets — the day side of the planet eats light rather than reflects it into space. The exoplanet, which is twice the size of Jupiter, has the unique capability to trap at least 94 percent of the visible starlight falling into its atmosphere. The temperature of the atmosphere is a seething 4,600 °F (8,312 °C). The day side hoards all the visible light because it always faces its star. The planet orbits so close to its host that it has fixed day and night sides. WASP-12b completes an orbit once a day. The night side is much cooler, with temperatures roughly 2,200 °F (3,992 °C), which allows water vapor and clouds to form. A swirl of material from the planet’s super-heated atmosphere is spilling onto its star. This oddball exoplanet is one of a class of so-called 'hot Jupiters' that orbit very close to their host star and are heated to enormous temperatures.";
+
+var text9 = "This beautiful pink, or should I say magenta, colored exoplanet is the resident of Virgo constellation. Its name is Gliese 504 b (but often referred to as GJ-504b) and it orbits its star at nearly nine times the distance Jupiter orbits the sun. One interesting characteristic of this planet is—it’s a newly formed planet and is still glowing with heat, which makes the surface appear a shade of magenta.";
+
+var text10 = "Kepler-438b has an Earth Similarity Index (ESI) of 0.88, the highest known for a confirmed exoplanet to date, making it currently the most Earth-like planet in terms of radius and mass. The planet was announced as orbiting within the habitable zone of Kepler-438, a region where liquid water could exist on the surface of the planet.";
+
+var text11 = "The last planet we are visiting is Tres-2b. This planet has been identified in 2011 as the darkest known exoplanet, reflecting less than 1% of any light that hits it (less than coal, for example). And the light reflected is dimly red which gives the planet an evil red color.";
+
+var text12 = "This journey definitely took a long time, but I feel like it barely passed a minute! I am happy to see that you watched the code until the end. If you like my code, remember to leave an upvote. Good luck!";
+
+var $ = (id) => document.getElementById(id);
+var z = 0;
+var word_counter = 0;
+
+//function for text writing.
+function texts(){
+    $("allTexts").innerHTML += main_text[word_counter];
+    if(++word_counter < main_text.length){
+        setTimeout(texts,50);
+    }
+    else{
+        word_counter = 0;
+        if(z != 11) {undoClick("block");}
+        switch (++z){
+            case 1:
+                events(function(){
+                    multiTexts(text2,"pl1");
+                });
+                break;
+            case 2:
+                events(function(){
+                    multiTexts(text3,"pl2");
+                });
+                break;
+            case 3:
+                events(function(){
+                    multiTexts(text4,"pl3");
+                });
+                break;
+            case 4:
+                events(function(){
+                    multiTexts(text5,"pl4");
+                });
+                break;
+            case 5:
+                events(function(){
+                    multiTexts(text6,"pl5");
+                });
+                break;
+            case 6:
+                events(function(){
+                    multiTexts(text7,"pl6");
+                });
+                break;
+            case 7:
+                events(function(){
+                    multiTexts(text8,"pl7");
+                });
+                break;
+            case 8:
+                events(function(){
+                    multiTexts(text9,"pl8");
+                });
+                break;
+            case 9:
+                events(function(){
+                    multiTexts(text10,"pl9");
+                });
+                break;
+            case 10:
+                events(function(){
+                    multiTexts(text11,"pl10");
+                });
+                break;
+            case 11:
+                events(function(){
+                    multiTexts(text12,"pl11");
+                });
+                break;
+        }
+    }
+}
+
+//button appearance.
+function undoClick(i){
+    $("b").style.display = i;
+    $("b").style.opacity = "1";
+}
+
+//main function for text replacement and restarting.
+function replaceAndGo(next){
+    word_counter = 0;
+    main_text = next;
+    $("allTexts").innerHTML = "";
+    setTimeout(texts, 250);
+    viewPlanet();
+}
+
+//function for planets images appearance.
+function appear(x){
+    for(let i = 0; i < document.getElementsByClassName("planets").length; i++){
+        document.getElementsByClassName("planets")[i].style.transform = `translate(-50%, -50%) scale(0)`;
+        document.getElementsByClassName("planets")[i].style.opacity = "0";
+    }
+    $(x).style.transform = `translate(-50%, -50%) scale(1)`;
+    $(x).style.opacity = "1";
+}
+
+//function for appearing new text and image, dissapearance of click button.
+function multiTexts(text, id){
+    undoClick("none");
+    replaceAndGo(text);
+    appear(id);
+}
+
+//adding the next event to the body.
+function events(i){
+    document.body.addEventListener("click", i, {once:true});
+}
+
+//Texts intro skip
+function skip(){
+    word_counter = main_text.length;
+    setTimeout(function(){
+        $("allTexts").innerHTML = main_text;
+        word_count = 0;
+    },100);
+}
+
+//Planets immages from bottom 0 flex div.
+function viewPlanet(){
+    if (z != 11){
+        $("sistem").innerHTML += `<img class = element src = ${document.getElementsByClassName("planets")[z-1].src}>`;
+    }
+}
+
+//Start, Begining message.
+window.onload = function(){
+    setTimeout(texts,200);
+    document.body.addEventListener("dblclick", skip);
+};
+
+alert("Double click to skip text intro")
+
+        </script>
+    </body>
+</html>

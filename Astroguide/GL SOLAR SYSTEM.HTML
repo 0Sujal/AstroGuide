@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
+
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style type="text/css">
+		@import url('https://fonts.googleapis.com/css?family=Jura:400,500');
+		body {
+  font-family: "Jura";
+  font-size: 1rem;
+  font-weight: normal;
+  line-height: 125%;
+  overflow-y: hidden;
+  text-transform: uppercase;
+}
+
+body::after {
+  background: #091723 url("https://assets.codepen.io/2856/starfield_1.jpg")
+    no-repeat 0 0;
+  background-size: cover;
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1000;
+}
+
+body::before {
+  background-color: hsl(0, 0%, 0%, 0.5);
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -999;
+}
+
+body::-webkit-scrollbar {
+  background-color: #091723;
+  width: 1em;
+}
+
+body::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #113362;
+  outline: 1px solid #091422;
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: white;
+  justify-content: space-between;
+  padding: 2rem;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+footer img#logo {
+  height: auto;
+  margin-right: 20px;
+  width: min(300px, 150px);
+}
+footer > p {
+  font-size: smaller;
+  margin-bottom: 0;
+}
+footer a {
+  color: white;
+}
+
+/* TECHNIQUE STYLES START HERE */
+/* --------------------------------------------------- */
+@keyframes float {
+  0% {
+    top: 30%;
+  }
+  50% {
+    top: 50%;
+  }
+  100% {
+    top: 30%;
+  }
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+nav {
+  align-items: space-around;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-right: 1px solid #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 130px;
+  z-index: 100;
+}
+
+nav a {
+  background-repeat: no-repeat;
+  background-size: 15%;
+  background-position: 5px 10px;
+  color: #bfff8c;
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  opacity: 0.8;
+  padding: 10px 10px 10px 32px;
+  text-decoration: none;
+  transition: all 255ms ease-in-out;
+}
+
+nav a.zero {
+  background-image: url("https://assets.codepen.io/2856/sun_s.png");
+}
+
+nav a.one {
+  background-image: url("https://assets.codepen.io/2856/mercury_s.png");
+}
+
+nav a.two {
+  background-image: url("https://assets.codepen.io/2856/venus_s.png");
+}
+
+nav a.three {
+  background-image: url("https://assets.codepen.io/2856/earth_s.png");
+}
+
+nav a.four {
+  background-image: url("https://assets.codepen.io/2856/mars_s.png");
+}
+
+nav a.five {
+  background-image: url("https://assets.codepen.io/2856/jupiter_s.png");
+}
+
+nav a.six {
+  background-image: url("https://assets.codepen.io/2856/saturn_s.png");
+}
+
+nav a.seven {
+  background-image: url("https://assets.codepen.io/2856/uranus_s.png");
+}
+
+nav a.eight {
+  background-image: url("https://assets.codepen.io/2856/neptune_s.png");
+}
+
+nav a.nine {
+  background-image: url("https://assets.codepen.io/2856/pluto_s.png");
+}
+
+nav a:hover {
+  background-color: hsl(0, 0%, 0%, 0.9);
+  color: #71ff00;
+  opacity: 1;
+}
+
+#rule {
+  height: 1px;
+  position: absolute;
+  top: 256px;
+  width: 39000px;
+}
+#astronaut {
+  animation: float 10s ease-in infinite;
+  display: block;
+  height: auto;
+  position: absolute;
+  left: 38000px;
+  top: 30%;
+  width: 100px;
+  z-index: 100;
+}
+#sun {
+  animation: rotate 30s ease-in-out infinite;
+  height: auto;
+  position: absolute;
+  top: -10%;
+  left: -555px;
+  width: 800px;
+}
+
+#mercury {
+  animation: rotate 5s linear infinite;
+  height: 32px;
+  position: absolute;
+  top: 240px;
+  left: 219px;
+  width: 32px;
+}
+
+#venus {
+  animation: rotate 8s linear infinite;
+  height: 38px;
+  position: absolute;
+  top: 236px;
+  left: 405px;
+  width: 38px;
+}
+
+#earth {
+  animation: rotate 10s linear infinite;
+  height: 48px;
+  position: absolute;
+  top: 230px;
+  left: 565px;
+  width: 48px;
+}
+
+#mars {
+  animation: rotate 5s linear infinite;
+  height: 42px;
+  position: absolute;
+  top: 233px;
+  left: 863px;
+  width: 42px;
+}
+
+#asteroids {
+  background: url("https://assets.codepen.io/2856/asteroids.png") repeat-y 50%;
+  background-size: contain;
+  position: absolute;
+  left: 1900px;
+  top: 0;
+  bottom: 0;
+  width: 150px;
+}
+
+#jupiter {
+  animation: rotate 20s linear infinite;
+  height: 256px;
+  position: absolute;
+  top: 125px;
+  left: 2920px;
+  width: 256px;
+}
+
+#saturn {
+  animation: rotate 15s linear infinite;
+  height: auto;
+  position: absolute;
+  top: 190px;
+  left: 5400px;
+  width: 128px;
+}
+
+#uranus {
+  animation: rotate 15s linear infinite;
+  height: auto;
+  position: absolute;
+  top: 190px;
+  left: 10887px;
+  width: 128px;
+}
+
+#neptune {
+  animation: rotate 10s linear infinite;
+  height: 100px;
+  position: absolute;
+  top: 205px;
+  left: 17020px;
+  width: 100px;
+}
+
+#pluto {
+  animation: rotate 10s linear infinite;
+  height: 24px;
+  position: absolute;
+  top: 220px;
+  left: 35887px;
+  width: 24px;
+}
+
+a.planet {
+  display: block;
+  height: 25px;
+  overflow: hidden;
+  position: absolute;
+  top: 240px;
+  text-indent: 100%;
+  white-space: nowrap;
+  width: 25px;
+}
+
+a.mercury {
+  left: 80px;
+}
+
+a.venus {
+  left: 260px;
+}
+
+a.earth {
+  left: 400px;
+}
+
+a.mars {
+  left: 700px;
+}
+
+a.jupiter {
+  left: 2750px;
+}
+
+a.saturn {
+  left: 5250px;
+}
+
+a.uranus {
+  left: 10730px;
+}
+
+a.neptune {
+  left: 16870px;
+}
+
+a.pluto {
+  left: 35730px;
+}
+
+.info {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid black;
+  border-radius: 10px;
+  color: #71ff00;
+  position: absolute;
+  left: 235px;
+  top: 160px;
+  padding: 0 10px 10px 20px;
+  width: 120px;
+  z-index: -1;
+}
+
+.info h3 {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 15px 0 15px 30px;
+}
+
+.info p {
+  font-size: 12px;
+}
+
+.info h3 {
+  background-size: 20px;
+  background-position: 0 15px;
+  background-repeat: no-repeat;
+}
+.info.mercury h3 {
+  background-image: url("https://assets.codepen.io/2856/mercury_s.png");
+}
+
+.info.venus {
+  left: 425px;
+  padding-left: 25px;
+  width: 90px;
+}
+
+.info.venus h3 {
+  background-image: url("https://assets.codepen.io/2856/venus_s.png");
+}
+
+.info.earth {
+  left: 590px;
+  padding-left: 30px;
+}
+
+.info.earth h3 {
+  background-image: url("https://assets.codepen.io/2856/earth_s.png");
+}
+
+.info.mars {
+  left: 885px;
+  padding-left: 30px;
+}
+
+.info.mars h3 {
+  background-image: url("https://assets.codepen.io/2856/mars_s.png");
+}
+
+.info.jupiter {
+  left: 3110px;
+  padding-left: 80px;
+}
+
+.info.jupiter h3 {
+  background-image: url("https://assets.codepen.io/2856/jupiter_s.png");
+}
+
+.info.saturn {
+  left: 5470px;
+  padding-left: 80px;
+}
+
+.info.saturn h3 {
+  background-image: url("https://assets.codepen.io/2856/saturn_s.png");
+}
+
+.info.uranus {
+  left: 10950px;
+  padding-left: 70px;
+}
+
+.info.uranus h3 {
+  background-image: url("https://assets.codepen.io/2856/uranus_s.png");
+}
+
+.info.neptune {
+  left: 17080px;
+  padding-left: 50px;
+}
+
+.info.neptune h3 {
+  background-image: url("https://assets.codepen.io/2856/neptune_s.png");
+}
+
+.info.pluto {
+  left: 35900px;
+}
+
+.info.pluto h3 {
+  background-image: url("https://assets.codepen.io/2856/pluto_s.png");
+}
+
+	</style>
+</head>
+<body>
+<!-- START TECHNIQUE CODE -->
+
+<div id="rule"></div>
+<nav class="site">
+  <a href="#sun" class="nav zero">Sol</a>
+  <a href="#one" class="nav one">Mercury</a>
+  <a href="#two" class="nav two">Venus</a>
+  <a href="#three" class="nav three">Earth</a>
+  <a href="#four" class="nav four">Mars</a>
+  <a href="#five" class="nav five">Jupiter</a>
+  <a href="#six" class="nav six">Saturn</a>
+  <a href="#seven" class="nav seven">Uranus</a>
+  <a href="#eight" class="nav eight">Neptune</a>
+  <a href="#nine" class="nav nine">Pluto</a>
+</nav>
+
+<!-- The Sun -->
+<a name="sol"><img src="https://assets.codepen.io/2856/sun_1.png" id="sun"></a>
+
+<!-- Mercury -->
+<a id="one" class="planet mercury">Mercury</a>
+<img src="https://assets.codepen.io/2856/mercury_1.png" id="mercury">
+<article class="info mercury">
+  <h3>Mercury</h3>
+  <p>Namesake: Messenger of the Gods</p>
+  <p>Distace from Sun:<br>
+    36 million miles</p>
+  <p>To Scale:<br>
+    2.28 inches<br>
+    219 pixels</p>
+</article>
+
+<!-- Venus -->
+<a id="two" class="planet venus">Venus</a>
+<img src="https://assets.codepen.io/2856/venus.png" id="venus">
+<article class="info venus">
+  <h3>Venus</h3>
+  <p>Namesake: Goddess of Love</p>
+  <p>Distace from Sun:<br>
+    67 million miles</p>
+  <p>To Scale:<br>
+    4.25 inches<br>
+    408 pixels</p>
+</article>
+
+<!-- Earth -->
+<a id="three" class="planet earth">Earth</a>
+<img src="https://assets.codepen.io/2856/earth.png" id="earth">
+<article class="info earth">
+  <h3>Earth</h3>
+  <p>Namesake: None</p>
+  <p>Distace from Sun:<br>
+    93 million miles</p>
+  <p>To Scale:<br>
+    5.89 inches<br>
+    565 pixels</p>
+</article>
+
+<!-- Mars -->
+<a id="four" class="planet mars">Mars</a>
+<img src="https://assets.codepen.io/2856/mars.png" id="mars">
+<article class="info mars">
+  <h3>Mars</h3>
+  <p>Namesake: God of War</p>
+  <p>Distace from Sun:<br>
+    142 million miles</p>
+  <p>To Scale:<br>
+    8.99 inches<br>
+    863 pixels</p>
+</article>
+
+<!-- Asteroid Belt -->
+<div id="asteroids"></div>
+
+<!-- Jupiter -->
+<a id="five" class="planet jupiter">Jupiter</a>
+<img src="https://assets.codepen.io/2856/jupiter.png" id="jupiter">
+<article class="info jupiter">
+  <h3>Jupiter</h3>
+  <p>Namesake: King of the Gods</p>
+  <p>Distace from Sun:<br>
+    484 million miles</p>
+  <p>To Scale:<br>
+    30.67 inches<br>
+    2944 pixels</p>
+</article>
+
+<!-- Saturn -->
+<a id="six" class="planet saturn">Saturn</a>
+<img src="https://assets.codepen.io/2856/saturn.png" id="saturn">
+<article class="info saturn">
+  <h3>Saturn</h3>
+  <p>Namesake: God of Time</p>
+  <p>Distace from Sun:<br>
+    891 million miles</p>
+  <p>To Scale:<br>
+    56.45 inches<br>
+    5419 pixels</p>
+</article>
+
+<!-- Uranus -->
+<a id="seven" class="planet uranus">Uranus</a>
+<img src="https://assets.codepen.io/2856/uranus.png" id="uranus">
+<article class="info uranus">
+  <h3>Uranus</h3>
+  <p>Namesake: God of the Sky</p>
+  <p>Distace from Sun:<br>
+    1.79 billion miles</p>
+  <p>To Scale:<br>
+    113.41 inches<br>
+    10,887 pixels</p>
+</article>
+
+<!-- Neptune -->
+<a id="eight" class="planet neptune">Neptune</a>
+<img src="https://assets.codepen.io/2856/neptune.png" id="neptune">
+<article class="info neptune">
+  <h3>Neptune</h3>
+  <p>Namesake: God of the Sea</p>
+  <p>Distace from Sun:<br>
+    2.80 billion miles</p>
+  <p>To Scale:<br>
+    177.41 inches<br>
+    17,031 pixels</p>
+</article>
+
+<!-- Pluto -->
+<a id="nine" class="planet pluto">Pluto</a>
+<img src="https://assets.codepen.io/2856/pluto.png" id="pluto">
+<article class="info pluto">
+  <h3>Pluto</h3>
+  <p>Namesake: God of the Underworld</p>
+  <p>Distace from Sun:<br>
+    5.90 billion miles</p>
+  <p>To Scale:<br>
+    373.82 inches<br>
+    35,887 pixels</p>
+</article>
+
+<img src="https://assets.codepen.io/2856/astronaut.png" alt="" id="astronaut" width="150" />
+
+<!-- END TECHNIQUE CODE -->
+<footer>
+  <a href="https://kaisthagroup.carrd.co/" target="-blank"> <img src="https://kaisthagroup.carrd.co/assets/images/image03.jpg?v=441cd247" alt="" id="logo" width="300" /></a>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function () {
+  $("nav a").bind("click", function (event) {
+    var $anchor = $(this);
+    /*
+        if you want to use one of the easing effects:
+        $('html, body').stop().animate({
+            scrollLeft: $($anchor.attr('href')).offset().left
+        }, 1500,'easeInOutExpo');
+         */
+    $("html, body")
+      .stop()
+      .animate(
+        {
+          scrollLeft: $($anchor.attr("href")).offset().left
+        },
+        2000
+      );
+    event.preventDefault();
+  });
+});
+
+</script>
+</body>
+</html>

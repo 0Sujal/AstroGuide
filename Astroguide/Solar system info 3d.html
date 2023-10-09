@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Coda|M+PLUS+1p:900&display=swap" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style type="text/css">
+		* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.big-wrapper {
+  color: #eee;
+  font-family: "coda", Verdana, Geneva, Tahoma, sans-serif;
+  min-height: 100vh;
+  width: 100%;
+  background-image: url("https://i.postimg.cc/sXGXZtdd/seamless-2030395-1920.jpg");
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.main-header {
+  text-align: center;
+  text-transform: uppercase;
+  padding: 1rem;
+}
+
+.main-header h2 {
+  line-height: 1;
+  font-size: 1.5rem;
+  position: relative;
+  z-index: 3;
+  padding-bottom: 0.5rem;
+}
+
+.main-header h2 span {
+  font-size: 0.75em;
+}
+
+/* Nav bar */
+
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.main-nav a {
+  position: relative;
+  color: #eee;
+  height: 64px;
+  width: 64px;
+  margin: 0 0.25rem;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+}
+
+.main-nav li a:hover::after,
+.main-nav li a:focus::after{
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 133%;
+  z-index: 4;
+  transform: translateX(-50%);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.main-nav li:nth-child(1) a:hover::after {
+  content: "Mercury";
+}
+.main-nav li:nth-child(2) a:hover::after {
+  content: "Venus";
+}
+.main-nav li:nth-child(3) a:hover::after {
+  content: "Earth";
+}
+.main-nav li:nth-child(4) a:hover::after {
+  content: "Mars";
+}
+.main-nav li:nth-child(5) a:hover::after {
+  content: "Jupiter";
+}
+.main-nav li:nth-child(6) a:hover::after {
+  content: "Saturn";
+}
+.main-nav li:nth-child(7) a:hover::after {
+  content: "Uranus";
+}
+.main-nav li:nth-child(8) a:hover::after {
+  content: "Neptune";
+}
+
+.main-nav a img {
+  display: block;
+  width: 100%;
+  opacity: 0.5;
+  transition: 200ms ease;
+}
+
+.main-nav li:nth-child(3) a img {
+  width: 62%;
+}
+
+.main-nav a:hover img,
+.main-nav a img.active {
+  opacity: 1;
+  z-index: 1;
+  transform: scale(1.5);
+  background-image: radial-gradient(black, transparent 80%);
+}
+
+.main-nav a img.active {
+  transform: scale(2);
+  z-index: 2;
+}
+
+.main-nav li:nth-child(3) a:hover img {
+  background-image: radial-gradient(black, transparent 95%);
+  overflow: visible;
+}
+
+/* content */
+
+.content-wrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+  padding-bottom: 2rem;
+}
+
+.planet-col {
+  width: 38%;
+}
+
+.planet-col img {
+  width: 100%;
+  display: block;
+}
+
+.info-col {
+  margin-right: 2rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+  font-family: "M PLUS 1p", "Arial Black", Impact, Haettenschweiler,
+    "Arial Narrow Bold", sans-serif;
+  font-size: 6rem;
+  text-align: center;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.planet-col,
+.info-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+    transition: 1000ms ease-in-out;
+    transform: translateX(0%) scale(1);
+    opacity: 1;
+}
+
+.hide-left {
+    opacity: 0;
+    transform: translateX(-200%) scale(3);
+}
+
+.hide-right {
+    opacity: 0;
+    transform: translateX(100%) scale(0.25);
+}
+
+td:first-of-type {
+  text-align: right;
+}
+
+td:nth-child(2) {
+  padding-left: 1rem;
+}
+
+/*mobile style */
+@media screen and (max-width: 639px) {
+  .main-header h2 {
+    font-size: 1.23rem;
+  }
+
+  .main-nav {
+    margin-top: 2rem;
+  }
+
+  .main-nav li {
+    width: 25%;
+    text-align: center;
+    margin: 0 0 2rem;
+  }
+
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  h1 {
+    font-size: 4rem;
+  }
+
+  .info-col {
+    margin-right: 0;
+  }
+
+  .planet-col {
+    width: 90.5%;
+  }
+}
+
+/* Larger Desktop styles */
+@media screen and (min-width: 1440px) {
+  h1 {
+    font-size: 8rem;
+  }
+
+  .info-col table {
+    font-size: 2rem;
+  }
+
+  .main-header h2 {
+    padding-bottom: 2.5rem;
+    font-size: 3rem;
+  }
+
+  .main-nav li a {
+    margin: 0 1rem;
+  }
+
+  .main-nav a svg.active {
+    transform: scale(3);
+  }
+}
+
+	</style>
+</head>
+<body>
+<div class="big-wrapper">
+
+  <header class="main-header">
+    <h2>Planets <span>of the</span> Solar System</h2>
+  </header>
+
+  <div class="container">
+
+    <nav class="main-nav">
+      <ul>
+        <li><a href="#"><img src="https://svgshare.com/i/NSs.svg" alt="Mercury Symbol"></a></li>
+        <li><a href="#"><img src="https://svgshare.com/i/G3U.svg" alt="Venus Symbol"></a></li>
+        <li><a href="#"><img src="https://svgshare.com/i/G4M.svg" alt="Earth Symbol" class="active"></a></li>
+        <li><a href="#"><img src="https://svgshare.com/i/G4E.svg" alt="Mars Symbol"></a></li>
+        <li><a href="#"><img src="https://svgshare.com/i/G3A.svg" alt="Jupiter Symbol"></a></li>
+        <li><a href="#"><img src="https://svgshare.com/i/G4N.svg" alt="Saturn Symbol"></a></li>
+        <li><a href="#"><img src="https://svgshare.com/i/G4Y.svg" alt="Uranus Symbol"></a></li>
+        <li><a href="#"><img src="https://svgshare.com/i/G41.svg" alt="Neptune Symbol"></a></li>
+      </ul>
+    </nav> <!-- /main-nav -->
+
+    <main>
+      <div class="content-wrapper">
+        <div class="info-col">
+
+          <h1 id="planet-name">Earth</h1>
+
+          <table>
+            <tr>
+              <td>Distance From Sun:</td>
+              <td id="from-sun">150m <abbr>Km</abbr></td>
+            </tr>
+            <tr>
+              <td>Solar Orbital Year:</td>
+              <td id="solar-year">365 Days</td>
+            </tr>
+            <tr>
+              <td>Sidereel Day:</td>
+              <td id="sidereel-day">24 Hours</td>
+            </tr>
+            <tr>
+              <td>Orbital Velocity:</td>
+              <td id="orbital-velocity">66,600 <abbr>mph</abbr></td>
+            </tr>
+          </table>
+        </div> <!-- /info-col-->
+
+        <div class="planet-col">
+          <picture>
+            <source id="img1024" media="(min-width: 960px)" srcset="https://i.postimg.cc/nL3T3VVm/earth-trans-1024.png" />
+            <source id="img480" media="(max-width: 959px)" srcset="https://i.postimg.cc/RCNpbtHZ/earth-trans-480.png">
+            <img id="img-default" src="https://i.postimg.cc/RCNpbtHZ/earth-trans-480.png" />
+          </picture>
+        </div> <!-- /planet-col -->
+
+      </div> <!-- /content-wrapper  -->
+
+    </main>
+
+  </div> <!-- /container -->
+
+</div> <!-- /big-wrapper -->
+<script type="text/javascript">
+	const UI_planetName = document.getElementById("planet-name"),
+    UI_fromSun = document.getElementById("from-sun"),
+    UI_year = document.getElementById("solar-year"),
+    UI_day = document.getElementById("sidereel-day"),
+    UI_velocity = document.getElementById("orbital-velocity"),
+    UI_img480 = document.getElementById("img480"),
+    UI_img1024 = document.getElementById("img1024"),
+    UI_imgDefault = document.getElementById("img-default"),
+    UI_mainNav = document.querySelector(".main-nav"),
+    UI_symbols = document.querySelectorAll(".main-nav ul li img"),
+    UI_nav_links = document.querySelectorAll(".main-nav a"),
+    UI_planetCol = document.querySelector(".planet-col"),
+    UI_infoCol = document.querySelector(".info-col");
+
+const UI_symbol_array = Array.prototype.slice.call(UI_symbols); // Turning node list of SVG imgs into array
+const UI_link_array = Array.prototype.slice.call(UI_nav_links); // Turning nav link node list into array
+
+const planets =  [{
+    planetName: "Mercury",
+    fromSun: "57.9m <abbr>Km</abbr>",
+    year: "88 Earth Days",
+    day: "59 Earth Days",
+    velocity: "106,000 <abbr>mph</abbr>",
+    img480: "https://i.postimg.cc/g2PMJBBx/mercury-trans-480.png",
+    img1024: "https://i.postimg.cc/Y9jRZcjs/mercury-trans-1024.png"
+    },{
+    planetName: "Venus",
+    fromSun: "108m <abbr>Km</abbr>",
+    year: "225 Earth Days",
+    day: "116 Earth Days",
+    velocity: "126 <abbr>Kmh</abbr>",
+    img480: "https://i.postimg.cc/Ss5nTcb9/venus-trans-480.png",
+    img1024: "https://i.postimg.cc/g0zNyLpd/venus-trans-1024.png"
+    },{
+    planetName: "Earth",
+    fromSun: "150m <abbr>Km</abbr>",
+    year: "365 Days",
+    day: "24 Hours",
+    velocity: "66,600 <abbr>Mph</abbr>",
+    img480: "https://i.postimg.cc/RCNpbtHZ/earth-trans-480.png",
+    img1024: "https://i.postimg.cc/nL3T3VVm/earth-trans-1024.png"
+    },{
+    planetName: "Mars",
+    fromSun: "228m <abbr>Km</abbr>",
+    year: "687 Earth Days",
+    day: "24.6 Earth Days",
+    velocity: "86, 400 <abbr>Kmh</abbr>",
+    img480: "https://i.postimg.cc/Kz4KDJwF/mars-trans-480.png",
+    img1024: "https://i.postimg.cc/YCfdmfJb/mars-trans-1024.png"
+    },{
+    planetName: "Jupiter",
+    fromSun: "778m <abbr>Km</abbr>",
+    year: "11.8 Earth Years",
+    day: "10 Earth Hours",
+    velocity: "47,000 <abbr>Kmh</abbr>",
+    img480: "https://i.postimg.cc/cJFg3VDX/jupiter-trans-480.png",
+    img1024: "https://i.postimg.cc/rz2KccmF/jupiter-trans-1024.png"
+    },{
+    planetName: "Saturn",
+    fromSun: "1.43b <abbr>Km</abbr>",
+    year: "29.5 Earth Years",
+    day: "10.33 Earth Hours",
+    velocity: "22,000 <abbr>Mph</abbr>",
+    img480: "https://i.postimg.cc/8zV6gdJB/saturn-trans-480.png",
+    img1024: "https://i.postimg.cc/MHQvhXzF/saturn-trans-1024.png"
+    },{
+    planetName: "Uranus",
+    fromSun: "2.87b <abbr>Km</abbr>",
+    year: "84 Earth Years",
+    day: "17.25 Earth Hours",
+    velocity: "24,500 <abbr>Kmh</abbr>",
+    img480: "https://i.postimg.cc/KYG3RZ51/uranus-trans-480.png",
+    img1024: "https://i.postimg.cc/tRwv0g3t/uranus-trans-1024.png"
+    },{
+    planetName: "Neptune",
+    fromSun: "4.5b <abbr>Km</abbr>",
+    year: "165 Earth Years",
+    day: "16 Earth Hours",
+    velocity: "19, 500 <abbr>Kmh</abbr>",
+    img480: "https://i.postimg.cc/Nj7rsyRh/neptune-trans-480.png",
+    img1024: "https://i.postimg.cc/15FCyZMx/neptune-trans-1024.png"
+    }
+];
+
+function displayPlanetInfo(xo){ // Main function, swaps out all content
+    
+  setTimeout(function(){ // This delaying swapping out content to allow for animated transition before reappearing
+    UI_planetName.innerText = planets[xo].planetName;
+    UI_fromSun.innerHTML = planets[xo].fromSun;
+    UI_year.innerText = planets[xo].year;
+    UI_day.innerText = planets[xo].day;
+    UI_velocity.innerHTML = planets[xo].velocity;
+    UI_img480.setAttribute("srcset", planets[xo].img480 );
+    UI_img1024.setAttribute("srcset", planets[xo].img1024 );
+    UI_imgDefault.setAttribute("src", planets[xo].img480 );
+    UI_planetCol.classList.remove("hide-left");
+    UI_infoCol.classList.remove("hide-right");
+  }, 1100);
+};
+
+UI_mainNav.addEventListener("click", function(e){
+  e.preventDefault();
+  
+  if (event.target.tagName != "IMG" && event.target.tagName != "A"){return;}
+  
+  else if (event.target.tagName == "IMG") {
+
+    for (i = 0; i < UI_symbol_array.length; i++){
+
+        UI_symbol_array[i].classList.remove("active"); // removing any .active class on symbol img svgs
+
+        if (UI_symbol_array[i] === event.target) {
+            displayPlanetInfo(i); // calling function that matches iteration of symbol, passing in iteration
+            hideCols();
+            UI_symbol_array[i].classList.toggle("active");
+        }
+    }
+  } else if (event.target.tagName == "A") {
+
+    for (i = 0; i < UI_nav_links.length; i++){
+
+        UI_symbol_array[i].classList.remove("active"); // removing any .active class on symbol img svgs
+
+        if (UI_symbol_array[i].parentElement === event.target ) {
+            displayPlanetInfo(i); // calling function that matches iteration of symbol, passing in iteration
+          hideCols();  
+          UI_symbol_array[i].classList.toggle("active");
+        }
+    }
+  } else return;
+});
+
+function hideCols(){
+    UI_planetCol.classList.add("hide-left");
+    UI_infoCol.classList.add("hide-right");
+};
+</script>
+</body>
+</html>

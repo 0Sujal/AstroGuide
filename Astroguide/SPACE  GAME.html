@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<style type="text/css">
+	@import url("https://fonts.googleapis.com/css?family=Rubik+Mono+One");
+	@keyframes jump {
+	 80% {
+		 top: -5px;
+	}
+}
+ @keyframes from-bottom-to-top {
+	 95% {
+		 opacity: 1;
+	}
+	 100% {
+		 opacity: 0;
+		 top: -230vh;
+	}
+}
+ @keyframes pass-through {
+	 0% {
+		 bottom: 100%;
+		 top: 0;
+	}
+	 25% {
+		 bottom: 0;
+	}
+	 75% {
+		 top: 100%;
+	}
+	 100% {
+		 bottom: 0;
+		 top: 100%;
+	}
+}
+ @keyframes rotating-sky {
+	 100% {
+		 transform: rotate(360deg);
+	}
+}
+ @keyframes opac {
+	 50% {
+		 opacity: 0;
+	}
+}
+ @keyframes loading {
+	 33% {
+		 content: '..';
+	}
+	 66% {
+		 content: '...';
+	}
+}
+ body {
+	 background: #000;
+	 margin: 0;
+	 overflow: hidden;
+	 color: #fecf01;
+	 text-shadow: 0 0.289vh #0d00a5;
+	 font-family: "Rubik Mono One";
+}
+ canvas {
+	 z-index: -9001;
+	 margin: auto;
+	 position: absolute;
+	 top: 0;
+	 bottom: 0;
+}
+ .notDisplay {
+	 display: none;
+}
+ p {
+	 user-select: none;
+	 z-index: -1;
+	 color: #fecf01;
+	 position: relative;
+	 width: 600px;
+	 text-align: justify;
+	 font-size: 34px;
+	 font-family: sans-serif;
+	 letter-spacing: 0.5vw;
+	 font-weight: bold;
+	 margin: auto;
+	 line-height: 2;
+	 text-shadow: 0 0.289vh #0d00a5;
+	 top: 150vh;
+}
+ .wrapper {
+	 height: 100vh;
+	 position: relative;
+	 overflow: hidden;
+	 z-index: -1;
+}
+ .sky {
+	 position: absolute;
+	 top: 0;
+	 bottom: 0;
+	 left: 0;
+	 right: 0;
+	 margin: auto;
+	 width: 100vw;
+	 height: 100vh;
+	 animation: rotating-sky 702s linear infinite;
+}
+ .sky .star {
+	 position: absolute;
+}
+ #city {
+	 width: 100%;
+	 height: 100vh;
+	 position: fixed;
+	 overflow: hidden;
+	 z-index: -1;
+}
+ .particles {
+	 transform: rotate(-45deg);
+	 position: absolute;
+	 width: 100vw;
+	 height: 300vh;
+	 top: -100vh;
+	 bottom: 0;
+	 left: 0;
+	 right: 0;
+	 transition: 2s;
+}
+ .particles .line {
+	 border: 1px solid #fff;
+	 position: absolute;
+	 animation: pass-through 3s infinite;
+}
+ #startCounter {
+	 position: fixed;
+	 top: 5vh;
+	 left: 5vw;
+}
+ #loadingScreen {
+	 position: fixed;
+	 top: 0;
+	 bottom: 0;
+	 left: 0;
+	 right: 0;
+	 display: grid;
+	 place-items: center;
+	 z-index: 1000000;
+	 background: #000 88;
+}
+ #loadingScreen .bar {
+	 display: block;
+	 width: 90%;
+	 max-width: 400px;
+	 margin: auto;
+	 height: 50px;
+	 border: 1vh solid #fecf01;
+}
+ #loadingScreen .bar #loadBar {
+	 height: 100%;
+	 width: 0%;
+	 background: #fecf01;
+}
+ #loadingScreen > div {
+	 width: 100%;
+	 text-align: center;
+	 line-height: 3;
+}
+ #loadingScreen > div span:after {
+	 content: '.';
+	 animation: loading 2s linear infinite;
+}
+ #life {
+	 opacity: 0;
+	 transition: 2s;
+	 position: fixed;
+	 top: 5vh;
+	 left: 0;
+	 right: 0;
+	 text-align: center;
+	 display: block;
+}
+ #pauseScreen {
+	 user-select: none;
+	 position: fixed;
+	 top: 0;
+	 bottom: 0;
+	 left: 0;
+	 right: 0;
+	 font-size: 10vw;
+	 background: #000 88;
+	 z-index: 1010101010;
+	 text-align: center;
+	 display: none;
+	 place-items: center;
+	 margin: auto;
+}
+ #seeTheStory {
+	 position: relative;
+	 padding: 2vh 2vh;
+	 border: 0.75vh solid #fecf01;
+	 text-align: center;
+	 display: block;
+	 top: 20vh;
+	 text-shadow: 0 0.289vh #0d00a5;
+	 background: transparent;
+	 outline: none;
+	 font-family: "Rubik Mono One";
+	 color: #fecf01;
+	 border-radius: 10vh;
+	 margin: auto;
+	 font-size: 14px;
+	 box-shadow: 0 0.289vh 0 0 #0d00a5;
+}
+ #seeTheStory:hover {
+	 cursor: pointer;
+}
+ #seeTheStory:active {
+	 text-shadow: 0 0 #0d00a5;
+	 box-shadow: 0 0 #0d00a5;
+	 top: 20.289vh;
+}
+ #lastScore {
+	 position: fixed;
+	 border: 0;
+	 width: 100%;
+	 display: block;
+	 top: 95vh;
+	 text-shadow: 0 0.289vh #0d00a5;
+	 background: transparent;
+	 outline: none;
+	 font-family: "Rubik Mono One";
+	 color: #fecf01;
+	 border-radius: 10vh;
+	 font-size: 14px;
+	 text-align: left;
+	 left: 5vh;
+}
+ #lastScore:hover {
+	 cursor: pointer;
+}
+ #lastScore:active {
+	 text-shadow: 0 0 #0d00a5;
+	 box-shadow: 0 0 #0d00a5;
+	 top: 95.289vh;
+}
+ #bestScore {
+	 position: fixed;
+	 border: 0;
+	 width: 100%;
+	 display: block;
+	 top: 90vh;
+	 text-shadow: 0 0.289vh #0d00a5;
+	 background: transparent;
+	 outline: none;
+	 font-family: "Rubik Mono One";
+	 color: #fecf01;
+	 border-radius: 10vh;
+	 font-size: 14px;
+	 text-align: left;
+	 left: 5vh;
+}
+ #bestScore:hover {
+	 cursor: pointer;
+}
+ #bestScore:active {
+	 text-shadow: 0 0 #0d00a5;
+	 box-shadow: 0 0 #0d00a5;
+	 top: 90.289vh;
+}
+ #nextSongButton {
+	 position: fixed;
+	 right: 5vw;
+	 border: 0;
+	 font-size: 30px;
+	 top: 4vh;
+	 text-shadow: 0 0.289vh #0d00a5;
+	 background: transparent;
+	 outline: none;
+	 font-family: "Rubik Mono One";
+	 color: #fecf01;
+	 border-radius: 10vh;
+}
+ #nextSongButton:hover {
+	 cursor: pointer;
+}
+ #nextSongButton:active {
+	 text-shadow: 0 0 #0d00a5;
+	 box-shadow: 0 0 #0d00a5;
+	 top: 4.289vh;
+}
+ #startScreen {
+	 position: relative;
+	 transition: 0.5s;
+	 opacity: 0;
+	 text-align: center;
+	 height: 50vh;
+	 top: 0;
+	 bottom: 0;
+	 width: 100%;
+	 margin: auto;
+	 position: fixed;
+	 z-index: 1;
+}
+ #startScreen #start {
+	 font-size: 50px;
+	 border: 12px solid #fecf01;
+	 position: relative;
+	 padding: 2.89vh 5.78vh;
+	 box-shadow: 0 0.289vh 0 0 #0d00a5;
+	 top: 14.45vh;
+	 text-shadow: 0 0.289vh #0d00a5;
+	 background: transparent;
+	 outline: none;
+	 font-family: "Rubik Mono One";
+	 color: #fecf01;
+	 border-radius: 10vh;
+}
+ #startScreen #start:hover {
+	 cursor: pointer;
+}
+ #startScreen #start:active {
+	 text-shadow: 0 0 #0d00a5;
+	 box-shadow: 0 0 #0d00a5;
+	 top: 14.739vh;
+}
+ #startScreen #start span {
+	 position: relative;
+	 top: 0px;
+	 animation: jump 0.75s step-end infinite;
+}
+ #startScreen #start span:nth-child(2) {
+	 animation-delay: 0.15s;
+}
+ #startScreen #start span:nth-child(3) {
+	 animation-delay: 0.3s;
+}
+ #startScreen #start span:nth-child(4) {
+	 animation-delay: 0.45s;
+}
+ #startScreen #start span:last-child {
+	 animation-delay: 0.6s;
+}
+ .container {
+	 -webkit-perspective: 100;
+	 perspective: 100;
+}
+ .textWrapper {
+	 position: relative;
+	 top: -55vh;
+	 height: 150vh;
+	 overflow: hidden;
+	 transform: rotateX(5deg);
+}
+ #skipStory {
+	 position: fixed;
+	 top: 90vh;
+	 text-shadow: 0 0.289vh #0d00a5;
+	 background: transparent;
+	 outline: none;
+	 font-family: "Rubik Mono One";
+	 color: #fecf01;
+	 border-radius: 10vh;
+	 font-size: 16px;
+	 padding: 1vh 3vh;
+	 box-shadow: 0 0.289vh #0d00a5;
+	 background: transparent;
+	 color: #fecf01;
+	 border: 0.75vh solid #fecf01;
+	 right: 2.5vw;
+	 visibility: hidden;
+}
+ #skipStory:hover {
+	 cursor: pointer;
+}
+ #skipStory:active {
+	 text-shadow: 0 0 #0d00a5;
+	 box-shadow: 0 0 #0d00a5;
+	 top: 90.289vh;
+}
+ 
+</style>
+</head>
+<body>
+<div id="city">
+  <div class="wrapper">
+    <div class="sky"></div>
+  </div>
+  <div class="particles"></div>
+</div>
+
+<span id="startCounter"></span>
+<span id="life">❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤</span>
+<canvas class="notDisplay"></canvas>
+<!--https://luisarmando-testcoder.github.io/keeper/svg/game1/001-ufo.svg-->
+<div id="startScreen">
+  <h1>Command on Venus</h1>
+  <button id="start"><span>P</span><span>L</span><span>A</span><span>Y</span><span>SC</span></button>
+  <button id="seeTheStory">see the story</button>
+  <span id="bestScore"></span>
+  <span id="lastScore"></span>
+</div>
+
+<div class="container">
+  <div class="textWrapper">
+    <p>
+     They wanted the children of Mars
+      find warmth in a home
+      with an atmosphere, the Earth was very cold,
+      and was not compared to the core
+      from his home planet.
+      <br><br>
+      Venus on the other hand had what
+      They'd call a gas blanket
+      perfect for the martians
+      wealthy will settle.
+      <br><br>
+      So the red army,
+      accompanied by an asteroid belt
+      began to march to invade the
+      second planet after the Sun.
+    </p>
+  </div>
+  <button id="skipStory">Following</button>
+</div>
+<button id="nextSongButton">>></button>
+<div id="pauseScreen">
+  pause
+</div>
+<div id="loadingScreen">
+  <div>
+    <span id="messages">
+      generating
+    </span>
+    <div class="bar">
+      <div id="loadBar"></div>
+    </div>
+  </div>
+</div>
+<script src="https://luisarmando-testcoder.github.io/QuickerJs/lib/quicker.js"></script>
+<script type="text/javascript">
+	const life = gi('life'),
+  loadBar = gi('loadBar'),
+  startButton = gi('start'),
+  bestScore = gi('bestScore'),
+  lastScore = gi('lastScore'),
+  skipStory = gi('skipStory'),
+  theMessages = gi('messages'),
+  pauseScreen = gi('pauseScreen'),
+  startScreen = gi('startScreen'),
+  seeTheStory = gi('seeTheStory'),
+  startCounter = gi('startCounter'),
+  loadingScreen = gi('loadingScreen'),
+  nextSongButton = gi('nextSongButton');
+let canvas = qs('canvas');
+let storyContainer = qs('.container p');
+/*************	
+  Funciones	
+**************/
+function getResources() {
+  let arrayItemsToLoad = [];
+  let itemIndex = 0;
+  arrayItemsToLoad.push(soundsObj.inicio);
+  for (let i in soundsObj) {
+    // to get resources between index [0] and the penultimate element
+    if (itemIndex != 0 && itemIndex < 6) {
+      for (let a of soundsObj[i]) {
+        arrayItemsToLoad.push(a);
+      }
+    }
+    itemIndex += 1;
+  }
+  for (let i in soundsObj.extra) {
+    arrayItemsToLoad.push(soundsObj.extra[i]);
+  }
+  genImages(false);
+  itemIndex = 0;
+  for (let i in imagesObj) {
+    if (itemIndex < 4) {
+      for (let a of imagesObj[i]) {
+        arrayItemsToLoad.push(a);
+      }
+    }
+    itemIndex += 1;
+  }
+  itemsToLoad = arrayItemsToLoad.length - 1;
+  arrayItemsToLoad.push(imagesObj.venus);
+  return arrayItemsToLoad;
+  // to get from soundsObj the Audios
+}
+
+function detectLoadOfResoucesOnArray(resourcesArray) {
+  for (let i of resourcesArray) {
+    i.addEventListener('load', () => {
+      currentIndexElementLoaded++;
+      loadValue += 100 / itemsToLoad; //to upgrade bar by percentage
+    });
+
+    i.addEventListener('canplaythrough', () => {
+      currentIndexElementLoaded++;
+      loadValue += 100 / itemsToLoad; //to upgrade bar by percentage
+    });
+  }
+
+  loadIntervalIndex = wi(changeLoadState, 0);
+}
+function changeLoadState() {
+  // loadValue
+  if (loadValue < 100) {
+    loadBar.style.setProperty('width', `${loadValue}%`);
+    ih(theMessages, `generating${messages[currentIndexElementLoaded]}`, false);
+  } else if (loadValue > 100) {
+    loadBar.style.setProperty('width', '100%');
+    ih(theMessages, `generating ${messages[messages.length - 1]}`, false);
+    window.clearInterval(loadIntervalIndex);
+    startScreen.style.setProperty('opacity', 1);
+    loadingScreen.style.setProperty('display', 'none');
+  }
+}
+function changeSong() {
+  soundsObj.cancionesDelJuego[randomSongInGameIndex].pause();
+  randomSongInGameIndex++;
+  if (randomSongInGameIndex > soundsObj.cancionesDelJuego.length - 1) {
+    randomSongInGameIndex = 0;
+  }
+  for (let i of soundsObj.cancionesDelJuego) {
+    i.pause();
+  }
+  soundsObj.cancionesDelJuego[randomSongInGameIndex].play();
+  soundsObj.cancionesDelJuego[randomSongInGameIndex].volume = 0.05;
+}
+function startGame() {
+  window.addEventListener('keydown', e => {
+    if (e.keyCode === 80) {
+      pause = !pause;
+      if (pause) {
+        sp(pauseScreen, 'display', 'grid');
+        soundsObj.cancionesDelJuego[randomSongInGameIndex].pause();
+        soundsObj.intro[randomIntroSoundIndex].pause();
+      } else {
+        sp(pauseScreen, 'display', 'none');
+        soundsObj.cancionesDelJuego[randomSongInGameIndex].play();
+        if (seeIfIntroSoundStarted) {
+          soundsObj.intro[randomIntroSoundIndex].play();
+          soundsObj.intro[randomIntroSoundIndex].addEventListener('ended', () => {
+            seeIfIntroSoundStarted = false;
+          });
+        }
+      }
+    }
+  });
+  seeIfStartBool = false;
+  canvas.style.setProperty('box-shadow', '0 0 1vh');
+  soundsObj.inicio.pause();
+  skipStory.style.setProperty('visibilty', 'hidden');
+  life.style.setProperty('opacity', 1);
+  onSky.style.setProperty('opacity', 0);
+  nextSongButton.style.setProperty('display', 'inline');
+  canvas.style.setProperty('z-index', `9001`);
+  setCanvasSize(window.innerWidth, 500);
+  window.addEventListener('resize', () => {
+    setCanvasSize(window.innerWidth, 500);
+  });
+
+  /****************************
+    Creacion de los objetos
+  ****************************/
+  createObjects();
+  soundsObj.bienvenida[randomSongIntroIndex].pause();
+  soundsObj.cancionesDelJuego[randomSongInGameIndex].play(); //se detiene una y empieza otra canción
+  soundsObj.cancionesDelJuego[randomSongInGameIndex].volume = 0.05;
+  if (storyTellingBool) {
+    soundsObj.intro[randomIntroSoundIndex].play();
+  }
+  for (let i of soundsObj.cancionesDelJuego) {
+    i.addEventListener('ended', () => {
+      randomSongInGameIndex++;
+      if (randomSongInGameIndex > soundsObj.cancionesDelJuego.length - 1) {
+        randomSongInGameIndex = 0;
+      }
+      for (let a of soundsObj.cancionesDelJuego) {
+        a.pause();
+      }
+      soundsObj.cancionesDelJuego[randomSongInGameIndex].play();
+      soundsObj.cancionesDelJuego[randomSongInGameIndex].volume = 0.5;
+    });
+  }
+
+  /******************************
+    Boton de siguiente cancion 
+  ******************************/
+  nextSongButton.addEventListener('click', changeSong);
+  wt(() => {
+    let fibonacciTimes = 0;
+    let fibonacciAuxiliarValue = 1;
+    let seeWhichFibonacciState = true;
+    wi(() => {
+      if (!pause) {
+        if (seeWhichFibonacciState) {
+          for (let i = 0; i < fibonacciTimes; i++) {
+            createEnemy();
+          }
+          fibonacciTimes += fibonacciAuxiliarValue;
+          if (fibonacciTimes > 4) fibonacciTimes = 0;
+        } else {
+          for (let i = 0; i < fibonacciAuxiliarValue; i++) {
+            createEnemy();
+          }
+          fibonacciAuxiliarValue += fibonacciTimes;
+          if (fibonacciAuxiliarValue > 4) fibonacciAuxiliarValue = 1;
+        }
+        seeWhichFibonacciState = !seeWhichFibonacciState;
+      }
+    }, 1800);
+  }, 1000);
+  wt(() => {
+    wi(() => {
+      if (!pause) createAsteroid();
+    }, 500);
+  }, 8000);
+}
+
+/*************************************
+  Voz narrando la historia del juego
+*************************************/
+function startStoryTelling() {
+  if (storyTellingBool) {
+    tellStory();
+    storyTellingBool = false;
+  } else {
+    startGame();
+  }
+}
+function tellStory() {
+  skipStory.style.setProperty('visibility', 'visible');
+  let time = 42;
+  startScreen.style.setProperty('z-index', -1);
+  startScreen.style.setProperty('opacity', 0);
+  onSky.style.setProperty('opacity', 0);
+  soundsObj.bienvenida[randomSongIntroIndex].play();
+  soundsObj.bienvenida[randomSongIntroIndex].volume = 0.05;
+  soundsObj.inicio.play();
+  storyContainer.style.setProperty('animation', `from-bottom-to-top ${time}s linear forwards`);
+  wt(() => {
+    storyContainer.style.setProperty('animation', '');
+    if (seeIfStart) {
+      skipToStart();
+    } else {
+      startScreen.style.setProperty('z-index', 10);
+      startScreen.style.setProperty('opacity', 1);
+      onSky.style.setProperty('opacity', 1);
+      skipStory.style.setProperty('visibility', 'hidden');
+    }
+  }, time * 1000 + 1000);
+  theStartInterval = wi(() => {
+    startCounter.innerHTML = time;
+    time--;
+    if (time < 0) {
+      window.clearInterval(theStartInterval);
+      startCounter.innerHTML = '';
+    }
+  }, 1000);
+}
+function skipToStart() {
+  startScreen.style.setProperty('opacity', 0);
+  canvas.style.setProperty('display', 'block');
+  skipStory.style.setProperty('visibility', 'hidden');
+  storyContainer.style.setProperty('animation', '');
+  if (seeIfStartBool) {
+    startGame();
+  }
+  window.clearInterval(theStartInterval);
+  startCounter.innerHTML = '';
+}
+function genImages(bool = true) {
+  imagesObj.asteroids[0].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/003-asteroid.svg';
+  imagesObj.asteroids[1].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/008-asteroid-1.svg';
+  imagesObj.boom[0].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/011-explosion.svg';
+  imagesObj.boom[1].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/012-boom.svg';
+  imagesObj.ufo[0].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/001-ufo.svg';
+  imagesObj.ufo[1].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/002-ufo-1.svg';
+  imagesObj.ufo[2].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/004-ufo-2.svg';
+  imagesObj.ufo[3].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/005-ufo-3.svg';
+  imagesObj.venus.src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/009-venus.svg';
+  imagesObj.boom[0].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/011-explosion.svg';
+  imagesObj.spaceShip[0].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/006-spaceship.svg';
+  if (bool) {
+    imagesObj.spaceShip[0].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/006-spaceship.svg';
+    let imgCounter = 0;
+    wi(() => {
+      imgCounter++;
+      if (imgCounter === 3) {
+        imgCounter = 0;
+      }
+      imagesObj.spaceShip[1].src = `https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/007-spaceship-1-${imgCounter}.svg`;
+    }, 250);
+  }
+}
+
+/**********************
+  Dibujar el planeta
+**********************/
+function drawPlanet() {
+  ctx.drawImage(imagesObj.venus, xMovement, 25, canvas.height - 50, canvas.height - 50);
+}
+function createBullet() {
+  bulletArray.push({
+    x: ship.x + ship.size + 5,
+    y: ship.y + ship.size / 2,
+    r: 5
+  });
+}
+function drawBullets() {
+  for (let i of bulletArray) {
+    ctx.beginPath();
+    ctx.arc(i.x, i.y, i.r, 0, Math.PI * 2, false);
+    ctx.fillStyle = '#fecf01';
+    ctx.fill();
+    i.x += bulletSpeed;
+    if (i.x - i.r > canvas.width) bulletArray.splice(bulletArray.indexOf(i), 1);
+  }
+}
+function createExplosion(x, y, w, h) {
+  explosionArray.push({
+    x: x,
+    y: y,
+    w: w,
+    h: h,
+    speed: 1,
+    count: 0
+  });
+}
+function drawExplosions() {
+  for (let i of explosionArray) {
+    ctx.drawImage(imagesObj.boom[1], i.x, i.y, i.w, i.h);
+    i.count += 5;
+    i.x -= i.speed;
+    if (i.count > 100) {
+      explosionArray.splice(explosionArray.indexOf(i), 1);
+    }
+  }
+}
+
+/***************************
+  Creo las naves enemigas
+****************************/
+function createEnemy() {
+  enemiesArray.push({
+    x: canvas.width,
+    y: r(0, canvas.height - 60),
+    w: 60,
+    h: 50,
+    img: imagesObj.ufo[r(0, imagesObj.ufo.length - 1)],
+    speed: r(8, 14),
+    dmg: 0
+  });
+}
+
+/***************************
+  Dibujo  las naves enemigas
+****************************/
+function drawEnemies() {
+  for (let i of enemiesArray) {
+    ctx.drawImage(i.img, i.x, i.y, i.w, i.h);
+    i.x -= i.speed;
+    if (i.x + i.w < 0) {
+      lessPoint();
+      enemiesArray.splice(enemiesArray.indexOf(i), 1);
+    }
+  }
+}
+
+/******************************
+  Creacion de los asteroides
+******************************/
+function createAsteroid() {
+  asteroidsArray.push({
+    x: canvas.width,
+    y: r(0, canvas.height - 60),
+    w: 60,
+    h: 50,
+    img: imagesObj.asteroids[r(0, imagesObj.asteroids.length - 1)],
+    speed: r(20, 28)
+  });
+}
+
+/******************************
+  Dibujo de los asteroides
+******************************/
+function drawAsteroids() {
+  for (let i of asteroidsArray) {
+    ctx.drawImage(i.img, i.x, i.y, i.w, i.h);
+    i.x -= i.speed;
+    if (i.x + i.w < 0) asteroidsArray.splice(asteroidsArray.indexOf(i), 1);
+  }
+}
+
+/***********************
+  Movimiento del suelo
+************************/
+function moveSky() {
+  xMovement -= 2;
+  for (let i of document.querySelector('.sky').children) {
+    let left = i.getAttribute('left') - 0.05;
+    if (left < 0) {
+      left = 100;
+      sp(i, 'top', r(0, 99) + '%');
+    }
+    sp(i, 'left', left + '%');
+    sa(i, 'left', left);
+  }
+}
+function watchBulletAsteroidCollision() {
+  for (let i of bulletArray) {
+    for (let a of asteroidsArray) {
+      //MY OWN COLLISIONS BABY!!!!! FINALLY I DID IT!!!!
+      if (!(a.x - (i.x + i.r) >= 0 || i.x + i.r * -1 - (a.x + a.w) >= 0 || a.y - (i.y + i.r) >= 0 || i.y + i.r * -1 - (a.y + a.h) >= 0)) {
+        bulletArray.splice(bulletArray.indexOf(i), 1);
+      }
+    }
+  }
+}
+function watchBulletEnemyCollision() {
+  for (let i of bulletArray) {
+    for (let a of enemiesArray) {
+      //MY OWN COLLISIONS BABY!!!!! FINALLY I DID IT!!!!
+      if (!(a.x - (i.x + i.r) >= 0 || i.x + i.r * -1 - (a.x + a.w) >= 0 || a.y - (i.y + i.r) >= 0 || i.y + i.r * -1 - (a.y + a.h) >= 0)) {
+        if (a.dmg < 1) {
+          bulletArray.splice(bulletArray.indexOf(i), 1);
+          a.dmg++;
+        } else {
+          createExplosion(a.x, a.y, a.w, a.h);
+          enemiesArray.splice(enemiesArray.indexOf(a), 1);
+          getPoint();
+        }
+      }
+    }
+  }
+}
+function watchThingsSpaceShipCollision() {
+  for (let a of enemiesArray) {
+    //MY OWN COLLISIONS BABY!!!!! FINALLY I DID IT!!!!
+    if (!(a.x - (ship.x + ship.size / 2) >= 0 || ship.x + ship.size / 2 * -1 - (a.x + a.w) >= 0 || a.y - (ship.y + ship.size / 2) >= 0 || ship.y + ship.size / 2 * -1 - (a.y + a.h) >= 0)) {
+      createExplosion(a.x, a.y, a.w, a.h);
+      enemiesArray.splice(enemiesArray.indexOf(a), 1);
+      getPoint();
+      ship.life--;
+      life.innerHTML = '';
+      if (ship.life === 0) {
+        gameOver();
+      }
+      for (let i = 0; i < ship.life; i++) {
+        life.innerHTML += '❤';
+      }
+    }
+  }
+  for (let a of asteroidsArray) {
+    //MY OWN COLLISIONS BABY!!!!! FINALLY I DID IT!!!!
+    if (!(a.x - (ship.x + ship.size / 2) >= 0 || ship.x + ship.size / 2 * -1 - (a.x + a.w) >= 0 || a.y - (ship.y + ship.size / 2) >= 0 || ship.y + ship.size / 2 * -1 - (a.y + a.h) >= 0)) {
+      ship.life--;
+      life.innerHTML = '';
+      if (ship.life === 0) {
+        gameOver();
+      }
+      for (let i = 0; i < ship.life; i++) {
+        life.innerHTML += '❤';
+      }
+    }
+  }
+}
+function getPoint() {
+  globalPoints++;
+  startCounter.innerHTML = globalPoints;
+}
+function lessPoint() {
+  globalPoints--;
+  startCounter.innerHTML = globalPoints;
+}
+function gameOver() {
+  localStorage.setItem('lastScore', globalPoints);
+  if (localStorage.getItem('bestScore') < globalPoints) {
+    localStorage.setItem('bestScore', globalPoints);
+  }
+  location.replace('index.html');
+}
+function setCanvasSize(w, h) {
+  canvas.width = w;
+  canvas.height = h;
+}
+/*************************** 
+ * Declaración de variables
+***************************/
+
+let storyTellingBool;
+let seeIfStartBool = true;
+let ctx = canvas.getContext('2d');
+let planetSize = 550;
+let planetX = canvas.width + canvas.width * 2.25;
+let xMovement = planetX;
+let theStartInterval; // to set a counter on corner
+let onSky;
+let bulletSpeed = 32;
+let globalPoints = 0;
+let seeIfStart = true;
+let pause = false;
+let itemsToLoad;
+let loadValue = 0;
+let currentIndexElementLoaded = 0;
+let loadIntervalIndex;
+
+/***********
+  Cadenas
+************/
+let bulletArray = [];
+let enemiesArray = [];
+let asteroidsArray = [];
+let explosionArray = [];
+let messages = ['photon engine', 'plasma beam', 'antigravity jammer', 'antimatter cannon', 'energy drink compartment', 'self-destruct system', 'particle generator', 'coupling mechanism', ' heat shield', 'teleportation module', 'Japanese toilet', 'dioxide tanks', 'communication frequencies', 'control room', 'escape pod', 'radiation receivers', 'proximity sensors' , 'neutrino radar', 'obsidian ornaments', 'rotating panels', 'sunglasses', 'camouflage system', 'magnetic source meter', 'kaleidoscope', 'greenhouse', 'whirlpool', ' temporary shock waves', 'microprocessors', 'XOR gates', 'natural satellites', 'orichalcum cover', 'easter eggs'];
+
+/***********
+  Objetos
+************/
+let ship = {
+  life: 21,
+  size: 65,
+  y: undefined,
+  x: 200,
+  speed: 6,
+  controlsBool: false,
+  controls: e => {
+    switch (e.keyCode) {
+      case 40:
+        //down
+        ship.controlsBool = true;
+        if (ship.speed < 0) ship.speed = -ship.speed;
+        break;
+      case 38:
+        //up
+        ship.controlsBool = true;
+        if (ship.speed > 0) ship.speed = -ship.speed;
+        break;
+      case 83:
+        //s
+        ship.controlsBool = true;
+        if (ship.speed < 0) ship.speed = -ship.speed;
+        break;
+      case 87:
+        //w
+        ship.controlsBool = true;
+        if (ship.speed > 0) ship.speed = -ship.speed;
+    }
+  },
+  //--------------------
+  //Botones de disparo
+  //--------------------
+  controlsGun: e => {
+    switch (e.keyCode) {
+      case 90:
+        //disparos con la z
+        createBullet();
+        break;
+      case 79:
+        //disparos con la o
+        createBullet();
+    }
+  },
+  setShipPosition: () => {
+    if (ship.controlsBool) {
+      ship.y += ship.speed;
+      if (ship.y > canvas.height) {
+        ship.y = 0 - ship.size;
+      }
+      if (ship.y < 0 - ship.size) {
+        ship.y = canvas.height;
+      }
+    }
+    ctx.drawImage(imagesObj.spaceShip[1], ship.x, ship.y, ship.size, ship.size);
+  }
+};
+
+//--------------------
+//Objeto de imagenes
+//--------------------
+let imagesObj = {
+  asteroids: [new Image(), new Image()],
+  spaceShip: [new Image(), new Image()],
+  ufo: [new Image(), new Image(), new Image(), new Image()],
+  boom: [new Image(), new Image()],
+  venus: new Image()
+};
+
+//-------------------
+// Objeto de sonidos
+//-------------------
+let soundsObj = {
+  inicio: new Audio('https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/sounds/voices/intro.mp3'),
+  intro: [new Audio('https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/sounds/voices/bienvenida1.mp3'), new Audio('https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/sounds/voices/cubana.mp3')],
+  cancionesDelJuego: [new Audio('https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/sounds/gameSongs/GetLucky.mp3'), new Audio('https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/sounds/gameSongs/Ghostbusters.mp3'), new Audio('https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/sounds/gameSongs/MrBlueSky.mp3'), new Audio('https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/sounds/gameSongs/NeverGonnaGiveYouUp.mp3'), new Audio('https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/sounds/gameSongs/TakeMeHomeCountryRoads.mp3'), new Audio('https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/sounds/gameSongs/TalkDirtyToMe.mp3'), new Audio('https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/sounds/gameSongs/TheFinalCountdown.mp3'), new Audio('https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/sounds/gameSongs/TheTrooper.mp3'), new Audio('https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/sounds/gameSongs/Wiggle.mp3')],
+  explosiones: [new Audio('https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/sounds/voices/aahh.mp3'), new Audio('https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/sounds/voices/miau.mp3'), new Audio('https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/sounds/voices/miau2.mp3')],
+  bienvenida: [new Audio('https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/sounds/introSongs/AnotherOneBitesTheDust.mp3'), new Audio('https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/sounds/introSongs/WarPigs.mp3')],
+  lose: [new Audio('https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/sounds/voices/youlose.mp3'), new Audio('https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/sounds/voices/youlose2.mp3')],
+  extra: {
+    luis: new Audio('https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/sounds/extras/luis.ogg'),
+    ali: new Audio('https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/sounds/extras/ali.ogg')
+  }
+};
+
+/*****************
+  ExtraVariables
+******************/
+let randomSongIntroIndex = r(0, soundsObj.bienvenida.length - 1);
+let randomSongInGameIndex = r(0, soundsObj.cancionesDelJuego.length - 1);
+let randomIntroSoundIndex = r(0, soundsObj.intro.length - 1);
+let seeIfIntroSoundStarted = true;
+function createObjects() {
+  genImages();
+  ship.y = canvas.height / 2 - ship.size / 2;
+  window.requestAnimationFrame(draw);
+}
+function draw() {
+  if (!pause) {
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    drawPlanet();
+    ship.setShipPosition();
+    if (bulletArray.length > 0) drawBullets();
+    if (enemiesArray.length > 0) drawEnemies();
+    if (asteroidsArray.length > 0) drawAsteroids();
+    if (explosionArray.length > 0) drawExplosions();
+    watchBulletAsteroidCollision();
+    watchBulletEnemyCollision();
+    watchThingsSpaceShipCollision();
+    moveSky();
+  }
+  window.requestAnimationFrame(draw);
+}
+window.addEventListener('keydown', e => {
+  ship.controls(e);
+});
+window.addEventListener('keydown', e => {
+  ship.controlsGun(e);
+});
+detectLoadOfResoucesOnArray(getResources());
+if (!(localStorage.getItem('bestScore') == null || localStorage.getItem('lastScore') == null)) {
+  bestScore.innerHTML = `Mejor puntuación: ${localStorage.getItem('bestScore')}`;
+  lastScore.innerHTML = `Puntuación más reciente: ${localStorage.getItem('lastScore')}`;
+}
+
+// localStorage.setItem('TellingTheBool', false);
+
+if (localStorage.getItem('TellingTheBool') === 'true') {
+  storyTellingBool = false;
+} else {
+  storyTellingBool = true;
+  localStorage.setItem('TellingTheBool', true);
+}
+function genSky(selector, manyStars) {
+  let star = '<div class="star"></div>';
+  let onSky = qs(selector);
+  sp(onSky, 'opacity', '1');
+  let colorArr = ['white'];
+  for (let i = 0; i < manyStars; i++) {
+    ih(onSky, star);
+    sp(onSky.lastChild, 'top', r(0, 99) + '%');
+    sp(onSky.lastChild, 'left', r(0, 99) + '%');
+    sa(onSky.lastChild, 'left', r(0, 99));
+    sp(onSky.lastChild, 'background', colorArr[r(0, colorArr.length)]);
+    sp(onSky.lastChild, 'animation', 'opac 2.' + r(1, 9) + 's infinite');
+    sp(onSky.lastChild, 'animation-delay', r(0, 1) + '.' + r(0, 9) + 's');
+    let size = r(1, 3);
+    sp(onSky.lastChild, 'width', size + 'px');
+    sp(onSky.lastChild, 'height', size + 'px');
+  }
+}
+function genParticles(selector, manyLines) {
+  let line = '<div class="line"></div>';
+  onSky = qs(selector);
+  for (let i = 0; i < manyLines; i++) {
+    ih(onSky, line);
+    sp(onSky.lastChild, 'left', r(0, 99) + '.' + r(0, 100) + '%');
+    sp(onSky.lastChild, 'animation-delay', r(0, 9) + '.' + r(0, 9) + 's');
+  }
+}
+genSky('.sky', 80);
+genParticles('.particles', 20);
+nextSongButton.style.setProperty('display', 'none');
+startButton.addEventListener('click', () => {
+  canvas.className = '';
+  startScreen.style.setProperty('z-index', -1);
+  startScreen.style.setProperty('opacity', 0);
+  startStoryTelling();
+});
+seeTheStory.addEventListener('click', () => {
+  seeIfStart = false;
+  tellStory();
+});
+skipStory.addEventListener('click', () => {
+  seeIfStart = true;
+  skipToStart();
+});
+</script>
+</body>
+</html>

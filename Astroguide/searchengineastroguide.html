@@ -1,0 +1,786 @@
+ <!DOCTYPE html>
+<html>
+<head>
+  
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,300italic,400italic,700,700italic,100italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,300italic,400italic,600italic|Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    
+    <!-- Website Title & Description -->
+    <title>Acronym Lookup Tool</title>
+    <meta name="description" content="The replacement to WorkFaster 3">
+    <link rel="icon" href="#0" type="image/gif" sizes="32x32">
+    
+    <!-- Mobile viewport optimized -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- Internet Explorer Compatibility string -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    
+    <!-- JS -->       
+    <script   src="https://code.jquery.com/jquery-3.0.0.min.js"   integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0="   crossorigin="anonymous"></script> 
+<style type="text/css">
+  
+* {
+    box-sizing: border-box;
+}
+
+body {
+    box-sizing: border-box;
+    font-family: /Roboto,/"Open Sans",sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+}
+
+header h1 {
+  text-align: center;
+  padding: 0 0 0.3em 0;
+}
+
+.center-form {
+    margin: auto;
+}
+
+.center-form form {
+  display: inline-block;
+}
+
+.fa-search {
+  font-size: 1.5em;
+}
+
+input#search {
+    border-top: none;
+    border-bottom: 1px solid #ccc;
+    border-left: none;
+    border-right: none;
+    width: 20em;
+  height: 2em;
+    padding-left: 0.5em;
+    margin-left: 0.3em;
+    background: none;
+    transition: all ease-in-out 0.2s;
+  font-size: 1.05em;
+}
+
+input#search:focus {
+    outline: none;
+    border-bottom: 3px solid rgba(84, 191, 255, 0.8);
+}
+
+button {
+  border: none;
+    border-radius: 4px;
+    background-color: #54bfff;
+    width: 8em;
+    height: 2em;
+    color: #636363;
+  font-weight: 600;
+    margin: 0.5em;
+    cursor: pointer;
+  box-shadow: inset 0 -1px #bbbfc2;
+}
+
+.button:hover {
+    box-shadow: 1px 1px 6px rgba(0,0,0,0.5);
+}
+
+#searcharea {
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+    align-items: center;
+    margin: auto;
+}
+
+#checkboxes {
+  display: flex;
+    flex-direction: row;
+    padding: 0 1em 2em 1em;
+    justify-content: space-between;
+}
+
+.checkbox {
+    display: inline-block;
+}
+/*
+input[type="checkbox"] {
+    cursor: pointer;
+}
+*/
+
+.info-alert {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    align-items: center;
+    margin: 0.3em auto;
+    background-color: #92f1a5;
+    border: 2px solid #75bd84;
+    border-radius: 4px;
+    max-width: 45em;
+}
+
+p.info-alert-text {
+    margin: 0;
+    padding: 0.5em;
+}
+
+#searchUpdate {
+  min-height: 50vh;
+}
+
+.list-group {
+    margin: 10em 10em 3em;
+  transition: box-shadow ease-in-out 0.3s;
+}
+
+div.list-group:hover {
+    transition: box-shadow ease-in-out 0.3s;
+    box-shadow: 0 10px 27px 0 rgba(0, 0, 0, 0.2), 0 8px 30px 0 rgba(0, 0, 0, 0.19);
+}
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.list-group-item:first-child {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.list-group-item:last-child {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.list-group-item:focus, .list-group-item:hover {
+    color: #555;
+    text-decoration: none;
+    background-color: #f5f5f5;
+}
+
+h4.list-group-item-heading {
+  font-weight: 600;
+  font-size: 1.05em;
+  margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.small {
+  font-size: 0.8em;
+}
+
+.list-group-item p.small {
+    font-size: 0.8em;
+    margin-left: 0.5em;
+    padding: 0 0.5em;
+    border-left: 3px solid #ccc;
+}
+
+footer {
+  max-width: 100vw;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  width: 60%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1em;
+  align-items: flex-start;
+  margin: auto;
+}
+
+.row-item {
+  display: flex;
+  width: calc(33% - 0.5em);
+  padding: 0.5em 2em;
+}
+
+.row-item img {
+  max-width: 50%;
+  height: auto;
+  display: block;
+  margin: auto;
+}
+
+.row-item p {
+  font-size: 0.8em;
+}
+
+.row-item.one {
+  justify-content: flex-end;
+}
+
+.row-item.one p {
+  text-align: end;
+  text-align: right;
+  -webkit-text-align: right;
+}
+
+.row-item.two {
+  justify-content: center;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+}
+
+.row-item.three {
+  justify-content: flex-start;
+}
+
+/* Something Fun */
+#countMe:hover {
+  animation-name: wiggle;
+  -webkit-animation-name: wiggle;
+  -ms-animation-name: wiggle;
+  -ms-animation-duration: 1000ms;
+  -webkit-animation-duration: 1000ms;
+  -webkit-animation-iteration-count: 1;
+  -ms-animation-iteration-count: 1;
+  -webkit-animation-timing-function: ease-in-out;
+  -ms-animation-timing-function: ease-in-out;
+}
+@keyframes wiggle {
+  0% {transform: rotate(10deg);}
+  25% {transform: rotate(-10deg);}
+  50% {transform: rotate(20deg);}
+  75% {transform: rotate(-5deg);}
+  100% {transform: rotate(0deg);}
+}
+
+
+
+
+
+
+
+</style>
+    
+    
+</head>
+<body>
+  <?php include ("counter.php"); ?>
+   
+    <header>
+    <h1>AstroGuide Search Tool</h1>
+    </header>
+    <div id="searcharea">
+        <div class="center-form">
+          <div id="checkboxes">
+              <div class="checkbox">
+                    <input type="checkbox" id="acronymOnly" name="acronymOnly"/>
+                    <label for="acronymOnly">&nbsp; Search planets name and moon</label>
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" id="nameOnly" name="nameOnly"/>
+                    <label for="nameOnly">&nbsp; Search by name / term only</label>
+                </div>
+            </div>
+            <form>
+                <label for="search"><i class="fa fa-search" aria-hidden="true"></i></label>
+                <input id="search" name="search" type="search" list="searchHelper" placeholder="Type an acronym or name to Search..." />
+                <datalist id="searchHelper"></datalist>
+            </form>
+            <button class="button" id="searchButton">Search</button>
+            <button class="button clear" id="clearButton">Clear</button>
+        </div>
+    </div>
+    <!-- 
+    <div class="info-alert">
+      <p class="info-alert-text">Thank you for the feedback, we have updated the list with over 280 new terms!</p>
+    </div>
+    -->
+  <div id="searchUpdate"><?php include('loader01.html'); ?></div>
+    <footer>
+      <div class="container">
+          <div class="row">
+              <div class="row-item one">
+                </div>
+                <div class="row-item two">
+                  <div>
+                        <img id="" src="">
+                        <p></p>
+                        <!--<?php
+                        echo('<script>
+              $(document).ready(function(){
+                $("#countMe").click(function(){
+                  alert("'.$visits.'" + " page views");
+                });
+              });
+            </script>'); ?> -->
+          </div>
+                </div>
+                <div class="row-item three">
+                   <a href="#0"></a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+    var data = [
+            {
+               acronym: 'JS',
+               standsFor: 'JavaScript',
+               description: 'A scripting language for the web.'
+            },
+            {
+               acronym: 'HTML',
+               standsFor: 'Hyper Text Markup Language',
+               description: 'A markup language for the web.'
+            },
+            {
+               acronym: 'PHP',
+               standsFor: 'Hypertext Preprocessor',
+               description: 'A server side scripting language for the web.'
+            },
+             {
+               acronym: 'Sugam',
+               standsFor: 'Iam a web programmer and i am lead developer of astroguide team',
+               description: 'A markup language for the web.'
+            }, {
+               acronym: 'Sugam Kaistha',
+               standsFor: 'Founder Of KaisthaGroups and Sugamcreations',
+               description: 'A markup language for the web.'
+            }, {
+               acronym: 'sugam kaistha',
+               standsFor: 'Founder Of KaisthaGroups and Sugamcreations',
+               description: 'A markup language for the web.'
+            }, {
+               acronym: 'SUGAM',
+               standsFor: 'Iam a web programmer and i am lead developer of astroguide team',
+               description: 'A markup language for the web.'
+            },
+             {
+               acronym: 'priyanshi karol',
+               standsFor: 'Austroguide web developer and fontend programer',
+               description: 'A markup language for the web.'
+            }, {
+               acronym: 'PRIYANSHI KAROL',
+               standsFor: 'I am a web programmer and i am lead developer of astroguide team',
+               description: 'A markup language for the web.'
+            },
+            {
+               acronym: 'Kaisthagroups',
+               standsFor: 'Web deveopment.co ',
+               description: 'A server side zone.'
+            },{
+               acronym: 'Mars',
+               standsFor: 'Mars has been known since ancient times, and it is visible to the naked eye from Earth. Therefore, it was not "discovered" in the same way that a new planet might be found through a telescope. The earliest recorded observations of Mars date back to the second millennium BCE. The use of telescopes in the 17th century allowed for more detailed observations of Mars, and astronomers like Galileo Galilei made important contributions to our understanding of the planet.',
+               description: 'Discovery Year:Mars has been observed since ancient times, with recorded observations dating back to the second millennium BCE by various civilizations.'
+            },
+            {
+               acronym: 'Rotation Time',
+               standsFor: 'Rotation Time:Mars has a rotation period of approximately 24.6 hours, known as a "sol."',
+               description:''
+            },
+             {
+               acronym: 'Orbital Speed',
+               standsFor: 'Mars has an average orbital speed of about 24.1 kilometers per second (14.9 miles per second) as it orbits the Sun.',
+               description:''
+            }, {
+               acronym: 'The Stone on Mars',
+               standsFor: 'Mars surface is rocky and features various types of rocks, including sedimentary, igneous, and metamorphic rocks.',
+               description: ''
+            }, {
+               acronym: 'Water on Mars:',
+               standsFor: 'Mars has polar ice caps containing water, and evidence suggests liquid water may have existed on the surface in the past. Recent findings also indicate the presence of subsurface liquid water.',
+               description: ''
+            }, {
+               acronym: 'Human Exploration:',
+               standsFor: 'Robotic missions, including rovers like Spirit, Opportunity, Curiosity, and Perseverance, have been deployed. Human missions have been proposed but not launched.',
+               description: ''
+            },
+             {
+               acronym: 'Feasibility for Human Exploration:',
+               standsFor: 'Harsh Environmental Conditions:Mars has a thin atmosphere composed mostly of carbon dioxide, with very low atmospheric pressure. The surface conditions are harsh, with extreme cold, dust storms, and high levels of radiation from the sun.',
+               description: ''
+            }, {
+               acronym: 'Feasibility for Human Exploration:',
+               standsFor:'Low Atmospheric Pressure:The atmospheric pressure on Mars is about 1% of Earth. This poses challenges for human health, as the low pressure can lead to issues like the boiling of bodily fluids at normal body temperature.',
+               description: ''
+            },
+            {
+               acronym: 'Feasibility for Human Exploration:',
+               standsFor: 'Radiation Exposure:Mars lacks a strong magnetic field and thick atmosphere, exposing the surface to higher levels of cosmic and solar radiation compared to Earth. Long-term exposure to such radiation can be harmful to human health.',
+               description: ''
+            },{
+               acronym: 'Feasibility for Human Exploration:',
+               standsFor: 'Limited Resources:Mars has limited natural resources, and sustaining human life would require advanced life support systems. Water is present in the form of ice, and there is ongoing research on how to extract and use it for human needs.',
+               description: ''            },            {
+               acronym: 'Feasibility for Human Exploration:',
+               standsFor: 'Microgravity Effects:Mars has lower gravity than Earth. Prolonged exposure to low gravity environments can have health impacts, such as muscle atrophy and bone loss. Solutions to mitigate these effects are being explored.',
+               description: ''
+            },
+             {
+               acronym: 'Requirements for Human Survival:',
+               standsFor: 'Life Support Systems:Advanced life support systems are necessary to provide astronauts with breathable air, manage waste, and maintain a habitable environment. This includes technologies for air purification, water recycling, and waste management.',
+               description: ''
+            }, 
+            {
+               acronym: 'Requirements for Human Survival:',
+               standsFor: 'Radiation Protection:To protect against radiation, habitats on Mars would need to incorporate shielding materials. This could include constructing habitats underground or using materials that provide effective radiation protection.',
+               description: ''
+            }, {
+               acronym: 'Requirements for Human Survival:',
+               standsFor: 'Suitable Habitat Design:Habitats must be designed to withstand Mars extreme temperature variations, dust storms, and other environmental challenges.',
+                description: ''
+            }, {
+               acronym: 'Requirements for Human Survival:',
+               standsFor: 'Water Extraction and Purification:Since water is essential for human survival, technologies for extracting and purifying water from Mars resources, such as ice, are critical.',
+               description: ''
+            }, {
+               acronym: 'Requirements for Human Survival:',
+               standsFor: 'Nutrition and Agriculture:Sustainable food production is vital for long-term human presence. Research into Martian agriculture is ongoing to develop systems for growing crops in Martian conditions.',
+               description: ''
+            }, {
+               acronym: 'Requirements for Human Survival:',
+               standsFor: 'Medical Solutions:Medical care must be adapted to the conditions on Mars. This includes addressing the impacts of reduced gravity on the human body and developing telemedicine capabilities for remote consultations.',
+               description: ''
+            }, 
+            {
+               acronym: 'Mercury',
+               standsFor: 'Mercury has been known since ancient times, and it was observed by various cultures. The exact discovery year is not attributed to a specific individual.',
+               description: ''
+            },
+            {
+               acronym: 'Rotation Time:',
+               standsFor: 'Mercury has a slow rotation on its axis, taking about 59 Earth days to complete one rotation.',
+               description: ''
+            },{
+               acronym: 'Orbital Speed:',
+               standsFor: 'Mercury has an average orbital speed of about 47.87 kilometres per second (29.7 miles per second) as it revolves around the Sun.',
+               description: ''
+            },{
+               acronym: 'Surface:',
+               standsFor: 'Mercurys surface is rocky and heavily cratered. It contains various types of rocks, including basalt and other volcanic rocks.',
+               description: ''
+            },{
+               acronym: 'Water in the Plants:',
+               standsFor: 'There is no evidence of water, plants, or any form of life on Mercury. The planets surface conditions are extremely harsh, with high temperatures and lack of a substantial atmosphere.',
+               description: ''
+            },{
+               acronym: 'Human Exploration:',
+               standsFor: 'No human missions have been sent to Mercury. Only robotic missions, such as NASAs MESSENGER (MErcury Surface, Space ENvironment, GEochemistry, and Ranging) mission, have been conducted for scientific exploration.',
+               description: ''
+            },{
+               acronym: 'Feasibility for Human Exploration:',
+               standsFor: 'Mercury is not considered feasible for human exploration due to its extreme conditions. It has a surface temperature that varies greatly, ranging from extremely hot during the day to extremely cold at night. The lack of a significant atmosphere also means there is no protection from solar radiation.',
+               description: ''
+            },
+            {
+               acronym: 'Requirements for Humans to Stay in Extreme Conditions:',
+               standsFor: 'Staying on Mercury would require advanced life support systems to provide a habitable environment, protection from temperature extremes, and shielding from solar radiation. The challenges, including the lack of a substantial atmosphere and the harsh surface conditions, make human exploration and habitation currently impractical.',
+               description: ''
+            },
+            {
+               acronym: 'Venus',
+               standsFor: 'Discovery Year: Venus has been known since ancient times and is visible to the naked eye. The planet was visited by numerous spacecraft, including flybys, orbiters, and landers.',
+               description: ''
+            },
+            {
+               acronym: 'Rotation Time (Day Length):',
+               standsFor: 'Venus has an extremely slow rotation on its axis. It takes about 243 Earth days for Venus to complete one rotation. Interestingly, Venus rotates in the opposite direction to most other planets in our solar system, including Earth.',
+               description: ''
+            },{
+               acronym: 'Orbital Speed: ',
+               standsFor: 'Venus has an average orbital speed of about 35.02 km/s (21.75 miles/s).',
+               description: ''
+            },{
+               acronym: 'Surface Water: ',
+               standsFor: 'Venus is extremely hostile to life as we know it. It has a thick atmosphere primarily composed of carbon dioxide with clouds of sulfuric acid. The surface is extremely hot, with temperatures that can reach up to 467 degrees Celsius (872 degrees Fahrenheit). There is no liquid water on the surface due to the high temperatures.',
+               description: ''
+            },{
+               acronym: 'Human Visits: ',
+               standsFor: 'No humans have visited Venus. However, several spacecraft have been sent to study Venus, including the Soviet Union Venera program and NASAs Magellan mission.',
+               description: ''
+            },{
+               acronym: 'Feasibility for Human Exploration: ',
+               standsFor: 'Venus is an inhospitable planet with extreme temperatures, high atmospheric pressure, and acidic clouds. The surface conditions make it challenging for human exploration and colonization. The high surface temperature is due to the greenhouse effect caused by the thick atmosphere trapping heat.',
+               description: ''
+            },{
+               acronym: 'Requirements for Human Survival: ',
+               standsFor: 'If humans were to attempt to explore Venus, they would need advanced technology to withstand the harsh conditions. Specialized spacecraft and suits capable of handling high temperatures and pressures would be essential. Surface habitats would need to be designed to withstand both the extreme heat and pressure.',
+               description: ''
+            },
+            {
+               acronym: 'Earth',
+               standsFor: 'Earth is the only known celestial body where human life is known to exist. It serves as a reference point for our understanding of habitability and the conditions necessary for life as we know it.               ',
+               description: 'Discovery Year: Earth has been known to humans for as long as our species has existed. However, in terms of formal discovery, there is not a specific year associated with it.'
+            },
+            {
+               acronym: 'Rotation Time (Day Length):',
+               standsFor: 'Earth completes one full rotation on its axis approximately every 24 hours, defining a day.',
+               description: ''
+            },{
+               acronym: 'Orbital Speed: ',
+               standsFor: 'Earth orbits the Sun at an average speed of about 29.78 km/s (18.5 miles/s).',
+               description: ''
+            },{
+               acronym: 'Surface Water: ',
+               standsFor: 'Earth is unique among the planets in our solar system because it has liquid water on its surface. About 71% of the Earths surface is covered by oceans, seas, rivers, and other bodies of water.',
+               description: ''
+            },{
+               acronym: 'Human Visits:',
+               standsFor: ': Earth is the home planet of humanity, and humans have been living on and exploring Earth for the entirety of our existence. Human visits, in this context, are ongoing every day.',
+               description: ''
+            },{
+               acronym: 'Feasibility for Human Exploration: ',
+               standsFor: 'Earth is the most hospitable planet for humans in the solar system. It provides the necessary conditions for life, including a breathable atmosphere, moderate temperatures, and liquid water. Human exploration and habitation on Earth are not only feasible but have been occurring for centuries.',
+               description: ''
+            },{
+               acronym: 'Requirements for Human Survival: ',
+               standsFor: 'Humans require a combination of factors for survival on Earth, including a suitable atmosphere with oxygen, moderate temperatures, and access to water. The diverse ecosystems on Earth provide food resources, and the atmosphere protects us from harmful radiation.',
+               description: ''
+            },
+            {
+               acronym: 'Jupiter',
+               standsFor: 'Discovery Year: Jupiter has been known since ancient times and is visible to the naked eye. It is one of the five planets visible to the unaided eye from Earth and was observed by astronomers in ancient civilizations.',
+               description: ''
+            },
+            {
+               acronym: 'Rotation Time (Day Length): ',
+               standsFor: 'Jupiter has a very short rotation period. It completes one rotation on its axis in about 9 hours and 55 minutes. This rapid rotation results in a flattened appearance at the poles.',
+               description: ''
+            },{
+               acronym: 'Orbital Speed: ',
+               standsFor: 'Jupiter has an average orbital speed of about 13.1 km/s (8.1 miles/s).',
+               description: ''
+            },{
+               acronym: 'Surface Water: ',
+               standsFor: 'Jupiter is a gas giant and does not have a solid surface. It is composed mostly of hydrogen and helium, with trace amounts of other elements. As a gas giant, it does not have a well-defined surface, and there is no water in the traditional liquid form on Jupiter.',
+               description: ''
+            },{
+               acronym: 'Human Visits: ',
+               standsFor: 'No humans have visited Jupiter. Jupiter has been extensively studied by spacecraft, including flybys and orbiters, such as NASAs Galileo spacecraft.',
+               description: ''
+            },{
+               acronym: 'Feasibility for Human Exploration: ',
+               standsFor: 'Jupiter is a gas giant with no solid surface, and its atmosphere is composed mainly of hydrogen and helium. The extreme atmospheric pressure and lack of a solid surface make it currently infeasible for human exploration. The harsh radiation environment around Jupiter, including intense radiation belts, poses additional challenges.',
+               description: ''
+            },{
+               acronym: 'Requirements for Human Survival: ',
+               standsFor: 'Given the current understanding of Jupiters composition and conditions, human survival on or within Jupiter is not feasible with existing technology. The lack of a solid surface, extreme atmospheric pressure, and intense radiation make it a hostile environment for human life.',
+               description: ''
+            },
+            {
+               acronym: 'Saturn',
+               standsFor:'It is important to note that while Saturns rings are a distinctive feature, they are composed of icy particles and do not provide a solid surface for landing. As of now, exploration of Saturn is primarily conducted through robotic spacecraft, and there are no current plans for human missions to the planet due to the extreme conditions.',
+               description: 'Discovery Year: Saturn has been known since ancient times and is visible to the naked eye from Earth. It is one of the five planets visible to the unaided eye and was observed by astronomers in ancient civilizations.'
+            },
+            {
+               acronym: 'Rotation Time (Day Length):',
+               standsFor:'Saturn has a relatively fast rotation for a gas giant. It completes one rotation on its axis in about 10 hours and 14 minutes.',
+               description: ''
+            },{
+               acronym: 'Orbital Speed: ',
+               standsFor:'Saturn has an average orbital speed of about 9.68 km/s (6.02 miles/s).',
+               description: ''
+            },{
+               acronym: 'Surface Water: ',
+               standsFor:'Similar to Jupiter, Saturn is a gas giant and does not have a solid surface. Its atmosphere is primarily composed of hydrogen and helium. There is no traditional liquid water on Saturn.',
+               description: ''
+            },{
+               acronym: 'Human Visits:',
+               standsFor:'No humans have visited Saturn. Robotic spacecraft, including the Cassini orbiter, have been sent to study Saturn and its moons.',
+               description: ''
+            },{
+               acronym: 'Feasibility for Human Exploration: ',
+               standsFor:'Saturn is a gas giant, and its lack of a solid surface makes human exploration and habitation challenging. The extreme atmospheric pressure and the absence of a solid landing surface currently make it infeasible for human missions.',
+               description: ''
+            },{
+               acronym: 'Requirements for Human Survival:',
+               standsFor:'The harsh conditions on Saturn, including its thick atmosphere of hydrogen and helium, extreme winds, and lack of a solid surface, present significant challenges for human survival. Advanced technology would be required to address issues such as atmospheric entry and descent, as well as protection from the extreme conditions.',
+               description: ''
+            },
+            {
+               acronym: 'Uranus',
+               standsFor:'It is important to note that Uranus has a unique tilt, and its axis is nearly parallel to its orbital plane, causing extreme seasonal variations. Any potential human exploration of Uranus would require careful planning and advanced technology to address the challenges posed by its unique characteristics. As of now, there are no concrete plans for human missions to Uranus.',
+               description: 'Discovery Year: Uranus was discovered by German-born British astronomer Sir William Herschel on March 13, 1781.'
+            },{
+               acronym: 'Rotation Time (Day Length): ',
+               standsFor:'Uranus has a unique rotation compared to most other planets in the solar system. It rotates on its axis approximately once every 17.24 hours, making it the planet with the third-longest day in the solar system.',
+               description: ''
+            },{
+               acronym: 'Orbital Speed: ',
+               standsFor:'Uranus has an average orbital speed of about 6.81 km/s (4.24 miles/s).',
+               description: ''
+            },{
+               acronym: 'Surface Water: ',
+               standsFor:'Uranus is classified as an ice giant, and its composition is primarily a mix of ice and gas. It does not have a solid surface, and its atmosphere is composed mainly of hydrogen, helium, and traces of methane. As such, there is no traditional liquid water on the surface.',
+               description: ''
+            }, 
+            {
+               acronym: 'Human Visits: ',
+               standsFor:'No humans have visited Uranus. All exploration of Uranus has been conducted through robotic spacecraft, such as the Voyager 2 spacecraft, which conducted a flyby of Uranus in 1986.',
+               description: ''
+            },
+             {
+               acronym: 'Feasibility for Human Exploration: ',
+               standsFor:'Uranus, like other gas giants, lacks a solid surface, which poses significant challenges for human exploration. The extreme atmospheric conditions, including high wind speeds and the absence of a solid landing surface, make it currently infeasible for human missions.',
+               description: ''
+            },{
+               acronym: 'Requirements for Human Survival:',
+               standsFor:'The extreme conditions on Uranus, including its composition as an ice giant, high atmospheric winds, and lack of a solid surface, would require advanced technology for human survival. Additionally, considerations for spacecraft design, entry, descent, and potential atmospheric exploration would be crucial.',
+               description: ''
+            },
+            {
+               acronym: 'Neptune',
+               standsFor:'It is crucial to note that as of now, Neptune remains a distant and challenging target for human exploration. While there have been successful robotic missions, sending humans to Neptune poses significant technical and logistical challenges, and there are no current plans for human missions to the planet.',
+               description: 'Discovery Year: Neptune was discovered on September 23, 1846, by German astronomer Johann Galle. The discovery was based on mathematical predictions made by French mathematician Urbain Le Verrier and British mathematician John Couch Adams.'
+            },
+            {
+               acronym: 'Rotation Time (Day Length):',
+               standsFor:'Neptune has a relatively short rotation period for a gas giant. It completes one rotation on its axis in about 16 hours and 6 minutes.',
+               description: ''
+            },
+              {
+               acronym: 'Orbital Speed: ',
+               standsFor:'Neptune has an average orbital speed of about 5.43 km/s (3.37 miles/s).',
+               description: ''
+            },  {
+               acronym: 'Surface Water: ',
+               standsFor:'Neptune, like Uranus, is classified as an ice giant. Its atmosphere is primarily composed of hydrogen, helium, and traces of methane. While it does not have a solid surface, the presence of methane in its atmosphere gives it a distinct blue colour. There is no traditional liquid water on the surface.',
+               description: ''
+            },  {
+               acronym: 'Human Visits: ',
+               standsFor:'No humans have visited Neptune. All exploration of Neptune has been conducted through robotic spacecraft, with the Voyager 2 spacecraft making a flyby of Neptune in 1989.',
+               description: ''
+            },  {
+               acronym: 'Feasibility for Human Exploration: ',
+               standsFor:'Similar to other gas giants, Neptune lacks a solid surface, making human exploration and habitation challenging. The extreme atmospheric conditions, including high wind speeds and the absence of a solid landing surface, currently make it infeasible for human missions.',
+               description: ''
+            },  {
+               acronym: 'Requirements for Human Survival:',
+               standsFor:'The harsh conditions on Neptune, including its composition as an ice giant, high wind speeds, and the lack of a solid surface, would necessitate advanced technology for human survival. Any potential human exploration of Neptune would require spacecraft capable of withstanding the extreme atmospheric conditions and addressing challenges associated with entry and descent.',
+               description: ''
+            },
+             {
+               acronym: 'Ganymede: Jupiter Largest Moon ',
+               standsFor:'Ganymede is the largest moon in the solar system, and is larger than the planet Mercury. It is also the only moon with a global magnetic field.Ganymedes surface is covered in craters, and it has a complex system of valleys and ridges. It is also thought to have a subsurface ocean of liquid water.',
+               description: ''
+            },  {
+               acronym: 'Titan: Saturn Moon with Lakes and Rivers ',
+               standsFor:'Titan is the largest moon of Saturn, and is the only moon in the solar system with a dense atmosphere. It is also the only moon with lakes and rivers of liquid methane and ethane.Titans surface is covered in craters and mountains, and it has a thick haze that obscures its surface. However, scientists have been able to study Titans surface using radar and infrared imaging.',
+               description: ''
+            },  {
+               acronym: 'Europa: Jupiter Moon with a Subsurface Ocean',
+               standsFor:'Europa is one of the Galilean moons of Jupiter, and is thought to have a subsurface ocean of liquid water. It is also one of the few moons in the solar system that is thought to have the potential for life. Europas surface is covered in a layer of ice, and it has a very thin atmosphere. It is also one of the smoothest moons in the solar system, with very few craters..',
+               description: ''
+            },
+
+        ]
+    
+  // Author: Dean Hickerson
+  
+  // Do not cache list so JSON updates properly
+  $.ajaxSetup({ cache: false });
+  
+  // Search Engine
+  // There is probably a better way to write this but im a noob
+  
+  // Core Search Function
+  function searchEng() {
+    var searchField = $.trim($('#search').val());
+    var caseExp = new RegExp(searchField, "i");
+    // record search query to a file with php
+    // var term = $.trim($("#search").val());
+    // $.post("functions.php", { query:term, } );
+    // get data from json file
+    // $.getJSON('acron.json', function(data) {
+        // we would call JSON here if on a real server
+      var output = '<div class="list-group">';
+      $.each(data, function(key, val) {
+        if($('#acronymOnly').is(':checked') === true) {
+          if(val.acronym.search(caseExp) !== -1) {
+            output += '<div class="list-group-item"><h4 class="list-group-item-heading">' + val.acronym + '</h4>'; 
+            output += '<p>' + val.standsFor + '</p>' + '<p class="small">' + val.description + '</p>' + '</div>';
+          }
+        } else if($('#nameOnly').is(':checked') === true) {
+          if(val.standsFor.search(caseExp) !== -1) {
+            output += '<div class="list-group-item"><h4 class="list-group-item-heading">' + val.acronym + '</h4>'; 
+            output += '<p>' + val.standsFor + '</p>' + '<p class="small">' + val.description + '</p>' + '</div>';
+          }
+        } else {
+          if((val.acronym.search(caseExp) !== -1) || (val.standsFor.search(caseExp) !== -1) || ((val.acronym + ' ' + val.standsFor).search(caseExp) !== -1)) {
+            output += '<div class="list-group-item"><h4 class="list-group-item-heading">' + val.acronym + '</h4>'; 
+            output += '<p>' + val.standsFor + '</p>' + '<p class="small">' + val.description + '</p>' + '</div>';
+          }
+        }
+      });
+      output += '</div>';
+      $('#searchUpdate').html(output);
+    // }); // Get JSON
+  }
+  
+  function _noResult() {
+    if($('.list-group').is(':empty')) {
+      $('#searchUpdate').html('<div class="list-group"><div style="text-align:center" class="list-group-item"><h4 class="list-group-item-heading">No Result!</h4><p>Sorry, your search query returned no results. Help us make this tool better by clicking <a href="#0">here</a> to email the service desk with the term you would like to have added.</p></div></div>');
+    }
+  }
+  
+  // Acronym Search by button
+  $('#searchButton').click(function() {
+    searchEng();
+    setTimeout(_noResult, 1000);
+  });
+  
+  // Acronym Search by key press
+  $('#search').keypress(function (e) {
+    if(e.which ===13) {
+      searchEng();
+      setTimeout(_noResult, 1000);
+      return false;
+    }
+  });
+  
+  // Clear search field and results
+  $('#clearButton').click(function() {
+    $('#search').val('');
+    $('#nameOnly').prop('checked', false);
+    $('#acronymOnly').prop('checked', false);
+    // $('#searchUpdate').load('loader01.html');
+    $('#searchUpdate').html('');
+  });
+  
+  // Show Datalist - I scrapped this because it destroyed performance :(
+  /*
+    $.getJSON('acron.json',function(data) {
+      var build;
+      $.each(data, function(key, val) {
+        build += '<option value="' + val.acronym + '">';
+      });
+      $('#searchHelper').html(build);
+    });
+  */
+  
+  // Use when new updates are made
+  /*
+  function _infoAlert() {
+    $('.info-alert').fadeOut(3000);
+  }
+  setTimeout(_infoAlert, 4000);
+  */
+    
+      
+  
+});
+    </script>
+</body>
+</html>

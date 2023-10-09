@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+	<style type="text/css">
+		body {
+	 height: 100vh;
+	 overflow: hidden;
+	 background-image: url(https://images.unsplash.com/photo-1445905595283-21f8ae8a33d2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1952&q=80);
+	 background-size: 120% 100%;
+	 background-position: calc(var(--level, 0) * 0.1%) 50%;
+	 color: white;
+	 font-family: "Luckiest Guy", cursive;
+	 letter-spacing: 1px;
+}
+ body:after {
+	 content: "";
+	 position: absolute;
+	 left: 0;
+	 bottom: 0;
+	 right: 0;
+	 height: 10px;
+	 background: linear-gradient(to bottom, transparent, red);
+	 transform: scaleY(var(--laser, 1));
+	 transition: transform 0.3s ease-in-out;
+	 will-change: transform;
+}
+ #buzz {
+	 position: absolute;
+	 left: 0;
+	 bottom: 0;
+	 transform-origin: bottom left;
+	 transition: transform 0.1s ease-in-out, filter 0.3s ease-in-out;
+	 will-change: transform, filter;
+}
+ #buzz.active {
+	 filter: brightness(1.5);
+}
+ #buzz-flame {
+	 position: absolute;
+	 left: 43%;
+	 top: 40%;
+	 transform-origin: bottom;
+	 transition: transform 0.1s ease-in-out;
+	 will-change: transform;
+	 transform: rotateZ(-125deg) scaleY(var(--buzzFlame, 1));
+}
+ .coin {
+	 position: absolute;
+	 left: 0;
+	 bottom: 0;
+	 transform-origin: bottom left;
+	 background-size: contain;
+	 background-position: center;
+	 background-repeat: no-repeat;
+	 width: 32px;
+	 height: 32px;
+	 transform: translate(calc(var(--x, 0) * 1px), calc(var(--y, 0) * 1px));
+	 will-change: transform;
+}
+ .coin.bonus {
+	 background-image: url(https://assets.codepen.io/5356857/energy.svg);
+}
+ .coin.malus {
+	 background-image: url(https://assets.codepen.io/5356857/asteroid.svg);
+}
+ .coin.speedup {
+	 background-image: url(https://assets.codepen.io/5356857/stopwatch.svg);
+}
+ .coin.speeddown {
+	 background-image: url(https://assets.codepen.io/5356857/snowflake.svg);
+}
+ .coin.laser {
+	 background-image: url(https://assets.codepen.io/5356857/laser.svg);
+}
+/* Interface */
+ #ind-fuel {
+	 position: absolute;
+	 left: 1rem;
+	 top: 1rem;
+}
+ #ind-score {
+	 position: absolute;
+	 right: 1rem;
+	 top: 1rem;
+}
+ #ind-points {
+	 position: absolute;
+	 left: 1rem;
+	 bottom: 1rem;
+}
+ .modal {
+	 position: fixed;
+	 top: 0;
+	 right: 0;
+	 bottom: 0;
+	 left: 0;
+	 background-color: rgba(109, 59, 113, 0.3);
+	 display: grid;
+	 place-content: center;
+}
+ .modal.deactive {
+	 display: none;
+}
+ .modal .modal-dialog {
+	 background-color: rgba(100, 183, 60, 0.3);
+	 padding: 30px;
+	 text-align: center;
+}
+ .modal .modal-dialog .grey {
+	 color: black;
+}
+ .modal .modal-dialog .green {
+	 color: lightgreen;
+}
+ .modal .modal-dialog .red {
+	 color: red;
+}
+ .modal .modal-dialog button {
+	 font: inherit;
+	 border: none;
+	 background-color: #4d2a4f;
+	 color: inherit;
+	 padding: 0.5rem 3rem 0.2rem;
+	 cursor: pointer;
+}
+ 
+	</style>
+</head>
+<body>
+<div id="ind-fuel"></div>
+<div id="ind-score"></div>
+<div id="ind-points"></div>
+<div id="buzz">
+	<img src="https://assets.codepen.io/5356857/buzz.svg" />
+	<img id="buzz-flame" src="https://assets.codepen.io/5356857/flame.svg" />
+</div>
+<div id="buzz-coins"></div>
+<div class="modal">
+	<div class="modal-dialog">
+		<h1>To Infinity and Beyond</h1>
+		<p>Use your <span class="grey">keyboard arrows/wasd </span> to control Buzz</p>
+		<p>Collect the <span class="green">Jetpack Energy Coins</span></p>
+		<p>Avoid the <span class="red">Asteroids</span> and the <span class="red">Bottom Laser</span></p>
+			<button id="start">Start</button>
+	</div>
+</div>
+<script src=""></script>
+<script type="text/javascript">
+	// Settings
+let propulsion = 10;
+let gravity = 2;
+let fuelBurn = 0.5;
+let offset = 0;
+let coinFuel = 10;
+let coinSpawn = 200;
+
+// Temp?
+const defaultPropulsion = 10;
+
+// Utility
+const modal = document.querySelector(".modal");
+const buzz = document.querySelector("#buzz");
+const buzzFlame = document.querySelector("#buzz-flame");
+const buzzCoins = document.querySelector("#buzz-coins");
+const indFuel = document.querySelector("#ind-fuel");
+const indScore = document.querySelector("#ind-score");
+const indPoints = document.querySelector("#ind-points");
+const w = window.innerWidth;
+const h = window.innerHeight;
+const buzzW = buzz.offsetWidth;
+const buzzH = buzz.offsetHeight;
+const buzzOffset = 40;
+const coinW = 32;
+
+// Sound
+const soundtrack = new Audio("https://assets.codepen.io/5356857/soundtrack.mp3");
+soundtrack.loop = true;
+const fuelUp = new Audio("https://assets.codepen.io/5356857/energy-up.mp3");
+const fuelDown = new Audio("https://assets.codepen.io/5356857/energy-down.mp3");
+
+// Variables
+let coins = [];
+let buzzY = -500;
+let buzzX = 0;
+let fuel = 100;
+let level = 0;
+let counter = 0;
+let running = false;
+const triggers = {
+  ArrowUp: false,
+  ArrowRight: false,
+  ArrowDown: false,
+  ArrowLeft: false
+};
+const jetpack = e => {
+  let key = e.key;
+
+  // WASD Support
+  switch (key) {
+    case "w":
+      key = "ArrowUp";
+      break;
+    case "s":
+      key = "ArrowDown";
+      break;
+    case "a":
+      key = "ArrowLeft";
+      break;
+    case "d":
+      key = "ArrowRight";
+      break;
+  }
+  triggers[key] = e.type === "keydown" ? true : false;
+};
+document.addEventListener("keydown", jetpack, false);
+document.addEventListener("keyup", jetpack, false);
+
+// Mobile Support
+document.addEventListener("touchstart", function () {
+  jetpack({
+    key: "ArrowUp",
+    type: "keydown"
+  });
+});
+document.addEventListener("touchend", function () {
+  jetpack({
+    key: "ArrowUp",
+    type: "keyup"
+  });
+});
+
+// Mods - more mods coming soon
+const coinType = ["bonus", "bonus", "bonus", "bonus", "malus", "speedup", "speeddown", "laser"
+//"morebonus",
+//"moremalus",
+//"buzzshrink",
+//"buzzgrow",
+//"buzzweapon",
+];
+
+const coinTypeN = coinType.length;
+
+// New Coins
+const generate = n => {
+  for (let i = 0; i < (n | 1); i++) {
+    coins.push({
+      x: w + coinW + coinSpawn * (i + 1),
+      y: Math.random() * (-h + coinW),
+      t: coinType[Math.floor(Math.random() * coinTypeN)]
+    });
+  }
+};
+const restart = () => {
+  buzzY = -500;
+  buzzX = 0;
+  level = 0;
+  counter = 0;
+  fuel = 100;
+  coins = [];
+  generate(3);
+  running = true;
+  modal.classList.add("deactive");
+  soundtrack.currentTime = 0;
+  soundtrack.play();
+};
+document.querySelector("#start").addEventListener("click", restart, false);
+const movement = () => {
+  if (running) {
+    let accY = 1;
+    if (triggers.ArrowUp && fuel > 0 && buzzY > -h + buzzOffset) {
+      buzzY -= propulsion;
+      fuel -= fuelBurn;
+      accY = 2;
+    }
+    if (buzzY < buzzH - buzzOffset - offset) {
+      let accX = 1;
+      if (triggers.ArrowDown) {
+        buzzY += propulsion;
+        accY = 0.5;
+      }
+      if (triggers.ArrowRight && buzzX < w - buzzOffset) {
+        buzzX += propulsion;
+        accX = 2;
+      }
+      if (triggers.ArrowLeft && buzzX > -buzzW + buzzOffset) {
+        buzzX -= propulsion;
+        accX = 0.5;
+      }
+      buzzY += gravity;
+
+      // Progress
+      level += propulsion * 2 * accX;
+
+      // Hitbox
+      let indCoins = "";
+      coins.forEach((coin, i) => {
+        coin.x -= propulsion * 0.5 * accX;
+        if (buzzY - buzzH + buzzOffset < coin.y && buzzY - buzzOffset > coin.y && buzzX + buzzOffset < coin.x && buzzX + buzzW - buzzOffset > coin.x) {
+          switch (coin.t) {
+            case "malus":
+              fuelDown.currentTime = 0;
+              fuelDown.play();
+              fuel -= coinFuel;
+              buzz.style.filter = "invert(1)";
+              setTimeout(function () {
+                buzz.style.filter = "";
+              }, 300);
+              break;
+            case "speedup":
+              propulsion = defaultPropulsion * 2;
+              soundtrack.playbackRate = 1.2;
+              buzz.style.filter = "saturate(3)";
+              setTimeout(function () {
+                buzz.style.filter = "";
+                propulsion = defaultPropulsion;
+                soundtrack.playbackRate = 1;
+              }, 3000);
+              break;
+            case "speeddown":
+              propulsion = defaultPropulsion * 0.5;
+              soundtrack.playbackRate = 0.5;
+              buzz.style.filter = "grayscale(1)";
+              setTimeout(function () {
+                buzz.style.filter = "";
+                propulsion = defaultPropulsion;
+                soundtrack.playbackRate = 1;
+              }, 3000);
+              break;
+            case "laser":
+              //soundtrack.playbackRate = 0.5;
+              document.body.style.setProperty("--laser", 50);
+              offset = 200;
+              setTimeout(function () {
+                document.body.style.setProperty("--laser", 1);
+                offset = 0;
+                //buzz.style.filter = "";
+                //propulsion = defaultPropulsion;
+                //soundtrack.playbackRate = 1;
+              }, 3000);
+              break;
+            default:
+              fuelUp.currentTime = 0;
+              fuelUp.play();
+              fuel += coinFuel + Math.floor(Math.random() * coinFuel);
+              counter++;
+              buzz.style.filter = "brightness(1.5)";
+              setTimeout(function () {
+                buzz.style.filter = "";
+              }, 300);
+          }
+          coins.splice(i, 1);
+          generate();
+        }
+        if (coin.x < -coinW) {
+          coins.splice(i, 1);
+          generate();
+        }
+        indCoins += '<span class="coin ' + coin.t + '" style="--x: ' + coin.x + "; --y: " + coin.y +
+        //"; --f: " +
+        //coin.f +
+        ';"></span>';
+      });
+
+      // Animations
+      document.body.style.setProperty("--level", level);
+      buzz.style.transform = "translate(" + buzzX + "px, " + buzzY + "px)";
+      buzzFlame.style.setProperty("--buzzFlame", accY);
+      buzzCoins.innerHTML = indCoins;
+      indFuel.innerHTML = "🔋 " + fuel + "%";
+      indScore.innerHTML = "🚀 " + (level + counter * 10000);
+      indPoints.innerHTML = "🟢 " + counter;
+    } else {
+      console.log("Game Over");
+      running = false;
+      modal.classList.remove("deactive");
+      soundtrack.pause();
+    }
+  }
+  requestAnimationFrame(movement);
+};
+movement();
+</script>
+</body>
+</html>

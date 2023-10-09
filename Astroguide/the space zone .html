@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<style type="text/css">
+		body {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  left: 0;
+  top: 0;
+}
+
+#all_content{
+  transition:opacity 1s;
+  opacity:0;
+  background:black;
+  width:auto;
+  height:auto;
+  left:0;
+  top:0;
+  margin:0;
+  padding:0;
+}
+
+#welcome{
+  position:fixed;
+  left:50%; top:50%;
+  transform:translate(-50%, -50%);
+  color:white;
+  opacity:1;
+  transition:opacity 1s;
+}
+
+#circle {
+  position: fixed;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%);
+  width: 200vh;
+  height: 200vh;
+  border-radius: 50%;
+  transition: transform 0.04s;
+  color: white;
+  background: black;
+  transition-timing-function: linear;
+  user-select: none;
+}
+
+#planet {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: auto;
+  max-height: 60vh;
+  z-index: 3;
+  pointer-events: none;
+  display: block;
+}
+
+.buttons {
+  position: fixed;
+  width: 50px;
+  height: calc(100vh - 50px);
+  background: rgba(25, 25, 25);
+  top: 50px;
+  opacity: 0.3;
+  transition: opacity 0.3s;
+  line-height: calc(100vh - 50px);
+  color: white;
+  text-align: center;
+  font-weight: bolder;
+  cursor: default;
+  user-select: none;
+}
+
+#left_button {
+  left: 0;
+}
+#right_button {
+  right: 0;
+}
+
+.buttons:hover {
+  opacity: 0.5;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  color: red;
+  background: white;
+  left: 0;
+  top: 0;
+  border-radius: 25%;
+  box-shadow: 0 0 2px yellow;
+}
+
+#sattelite, #astronaut, #moon, #sun, #dim2{
+  z-index:2;
+  position:absolute;
+}
+
+#sattelite {
+  top: 50%;
+  left: 85%;
+  width: 140px;
+  height: 145px;
+  transform: translate(-50%, -50%) rotate(90deg) scale(0.9);
+  background: url("https://imgur.com/VMdvPNy.jpg");
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.5s;
+}
+
+#sattelite:hover {
+  transform: translate(-50%, -50%) rotate(90deg) scale(1);
+}
+
+.button {
+  position: absolute;
+  width: auto;
+  height: auto;
+  color: white;
+  letter-spacing: 1px;
+  word-spacing: 2px;
+  cursor: pointer;
+}
+
+#projects {
+  left: 51%;
+  top: 16%;
+  transform: rotate(-21deg);
+}
+
+#astronaut {
+  width: 120px;
+  height: 140px;
+  background: url("https://imgur.com/8Bbrznf.jpg");
+  background-size: cover;
+  background-position: center;
+  left: 50%;
+  top: 15vh;
+  transform: translate(-50%) scale(0.9);
+  transition: transform 0.5s;
+}
+
+#astronaut:hover {
+  transform: translate(-50%) scale(1);
+}
+
+#about {
+  position: absolute;
+  left: 0;
+  top: 40%;
+  margin: 0;
+  padding: 0;
+}
+
+#moon {
+  width: 130px;
+  height: 130px;
+  background: url("https://imgur.com/QsTxX9E.jpg");
+  background-size: cover;
+  background-position: center;
+  left: 50%;
+  top: 85%;
+  transform: translate(-50%, -50%) rotate(180deg) scale(0.93);
+  transition: transform 0.5s;
+}
+
+#contact {
+  position: absolute;
+  left: 70%;
+  top: -18px;
+  line-height: 70%;
+  transform: translate(-50%);
+}
+
+#moon:hover {
+  transform: translate(-50%, -50%) rotate(180deg) scale(1);
+}
+
+#main {
+  display: block;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: fixed;
+}
+
+/*About page*/
+#container {
+  background: url("https://imgur.com/2x8RXqR.jpg");
+  background-size: cover;
+  background-position: center;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  overflow-y: scroll;
+  box-shadow: inset 0 0 3px black;
+  transform: scale(0);
+  transition: transform 0.5s;
+}
+
+#container::-webkit-scrollbar {
+  display: none;
+}
+
+.grid-container {
+  position: absolute;
+  width: 90vw;
+  height: 90vh;
+  min-height: 90vh;
+  left: 5vw;
+  top: 5vh;
+  background: transparent;
+  color: white;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 10px 10px;
+  grid-template-areas:
+    "image area1 area1 area1"
+    "image area2 area2 area2"
+    "image area3 area3 area3";
+}
+.area1 {
+  grid-area: area1;
+}
+.area2 {
+  grid-area: area2;
+}
+.area3 {
+  grid-area: area3;
+}
+.my_image {
+  grid-area: image;
+}
+
+.my_image {
+  width: 25vw;
+  max-width: 300px;
+  min-width: 100px;
+  min-height: 150px;
+  height: 90%;
+  max-height: 750px;
+  background: white;
+  position: relative;
+  place-self: center;
+  box-shadow: inset 0 0 25px black;
+  clip-path: polygon(50% 0, 100% 30%, 100% 70%, 50% 100%, 0 70%, 0 30%);
+  background: white url("https://databasespaces.carrd.co/assets/images/image10.jpg?v=e113c5c0");
+  background-size: auto 80%;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: box-shadow 0.5s;
+}
+
+.my_image:hover {
+  box-shadow: inset 0 0 26px purple, inset 0 0 20px purple;
+}
+
+.skill {
+  border: 2px solid white;
+  display: inline-block;
+  padding: 5px;
+  border-radius: 1em;
+  font-size: 90%;
+  margin: 4px;
+  letter-spacing: 1px;
+  word-spacing: 2px;
+}
+
+.skill:hover{
+  box-shadow:0 0 8px white;
+  cursor:default;
+}
+
+@media only screen and (max-width: 480px) {
+  .grid-container {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1ft;
+    grid-template-areas:
+      "image image image"
+      "area1 area1 area1"
+      "area2 area2 area2"
+      "area3 area3 area3";
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+#container {
+  display: none;
+}
+
+#close {
+  float: right;
+  background: darkred;
+  width: 1em;
+  text-align: center;
+  cursor: pointer;
+}
+/*About page*/
+
+#sun {
+  width: 140px;
+  height: 140px;
+  background: url("https://imgur.com/4XmwoFy.jpg");
+  background-size: 100%;
+  background-position: center;
+  left: 15%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.9) rotate(180deg);
+  transition: transform 0.5s;
+  box-shadow: 0 0 30px orange, inset 0 0 12px orange, inset 0 0 5px red,
+    inset 0 0 13px orange;
+  border-radius: 50%;
+}
+
+#sun:hover::after{
+  content:"Today is the best day to shine!";
+  position:absolute;
+  height:auto;
+  min-width:100%;
+  text-align:center;
+  background:rgba(50, 50, 50, 0.5);
+  padding:4px;
+  left:123%; top:50%;
+  transform:translate(-50%, -50%) rotate(90deg);
+}
+
+.point {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: white;
+  z-index: -1;
+}
+
+#dim2 {
+  width: 100px;
+  height: 100px;
+  background: transparent;
+  left: 75%;
+  top: 75%;
+  transform: translate(-50%, -50%) rotate(142deg);
+}
+
+#bh {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+#dim2:hover::after {
+  content: "Mirror Dimension";
+  position: absolute;
+  left: 50%;
+  top: -0.5em;
+  transform: translate(-50%);
+  background: rgba(100, 100, 100, 0.1);
+  width: 8em;
+  height: auto;
+  padding: 5px;
+  margin: 0;
+  text-align: center;
+  font-size: 90%;
+}
+
+/*Projects*/
+#cards-container {
+  padding: 0;
+  margin: 0;
+  left: 0;
+  top: 0;
+  position: absolute;
+  background: url("https://imgur.com/2x8RXqR.jpg");
+  background-size: cover;
+  background-position: left;
+  color: white;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  display: none;
+  transform: scale(0);
+  transition: transform 0.5s;
+  font-size:19px;
+}
+
+#cards-container::-webkit-scrollbar,
+.element::-webkit-scrollbar {
+  display: none;
+}
+
+#cards-container h3 {
+  margin-left: 15px;
+}
+
+.element {
+  position: relative;
+  width: calc(100vw - 30px);
+  height: auto;
+  margin: 15px;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: no-wrap;
+  overflow-x: scroll;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  perspective: 75vmax;
+  background: transparent;
+}
+
+.obj {
+  display: flex;
+  position: relative;
+  width: 100px;
+  height: 105px;
+  min-width: 100px;
+  transition: transform 0.3s;
+  border-radius: 5px;
+  transform-origin: 50% 0;
+}
+
+.obj-img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  display: block;
+  border-radius: 5px;
+}
+
+.obj::after {
+  content: "";
+  position: absolute;
+  display: block;
+  left: 0;
+  top: 0;
+  width: 100px;
+  height: 100px;
+  transition: all 1s;
+  border-radius: 5px;
+}
+
+.obj::before {
+  content: "";
+  position: absolute;
+  display: block;
+  left: 0;
+  top: 0;
+  width: 100px;
+  height: 105px;
+  transition: all 1s;
+  border-radius: 5px;
+  background: silver;
+  z-index: -1;
+}
+
+.obj:hover {
+  transform: rotatex(10deg);
+}
+
+.obj:hover .project_title {
+  opacity: 1;
+}
+
+.obj:hover::after {
+  content: "";
+  background: linear-gradient(
+    220deg,
+    rgba(255, 255, 255, 0.3),
+    transparent 25%,
+    rgba(255, 255, 255, 0.3),
+    transparent 50%
+  );
+}
+
+/*@media only screen and (max-width: 480px) {  
+  h3{
+    text-align:center;
+    margin-left:0;
+  }
+}*/
+
+.project_title {
+  color: black;
+  z-index: 1;
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  text-align: center;
+  left: 50%;
+  bottom: 0;
+  font-size:16px;
+  transform: translate(-50%);
+  user-select: none;
+  transition: opacity 0.3s;
+  background: rgba(250, 250, 250, 0.6);
+}
+
+.glyphicon {
+  position: absolute;
+  display: block;
+  color: black;
+  left: calc(100% - 23px);
+  z-index: 1;
+  font-size: 20px;
+  background: transparent;
+  height: 1em;
+  padding-top: 3px;
+  text-shadow: 0 0 1px white;
+}
+
+.glyphicon,
+.glyphicon:hover,
+.glyphicon:focus,
+.glyphicon:active {
+  text-decoration: none;
+  color: black;
+}
+
+.fa-paint-brush,
+.fa-gamepad,
+.fa-book,
+.fa-plus-circle {
+  displayinline-: block;
+  color: white;
+  position: relative;
+  margin: 0;
+  float: right;
+  margin-right: 1em;
+}
+
+/*Contact*/
+#contact-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: url("https://imgur.com/lNE9xmL.jpg");
+  background-size: cover;
+  background-position: center;
+  display: none;
+  transform: scale(0);
+  transition: transform 0.5s;
+  user-select:none;
+}
+
+#contact-container .fa {
+  color: white;
+  position: absolute;
+  width: auto;
+  height: auto;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.fa-facebook-official {
+  left: 10%;
+  top: 15%;
+}
+
+#contact-container .fa:hover {
+  transform: scale(1.15);
+}
+
+#contact-container .fa:active {
+  transform: scale(1);
+}
+
+#contact-container .fa-facebook-official:hover {
+  color: #3b5998;
+}
+
+.fa-codepen {
+  left: 22%;
+  top: 31%;
+}
+
+.fa-free-code-camp {
+  left: 40%;
+  top: 25%;
+}
+
+.fa-instagram {
+  left: 51%;
+  top: 12%;
+}
+
+#contact-container .fa-instagram:hover {
+  color: magenta;
+}
+
+.fa-phone-square {
+  left: 61%;
+  top: 36%;
+}
+#contact-container .fa-phone-square:hover {
+  color: lime;
+}
+
+.fa-send-o {
+  left: 70%;
+  top: 19%;
+}
+#contact-container .fa-send-o:hover {
+  color: aqua;
+}
+
+.fa-youtube-play {
+  left: 82%;
+  top: 28%;
+}
+
+#contact-container .fa-youtube-play:hover {
+  color: red;
+}
+
+#help-sign {
+  position: absolute;
+  width: auto;
+  height: auto;
+  max-width: 80vw;
+  padding: 1.3em;
+  font-size: 1.2em;
+  background: linear-gradient(to right, grey, silver, grey);
+  color: black;
+  bottom: 25vh;
+  left: 10vw;
+  box-shadow: -2px -2px 6px black;
+  font-weight: 550;
+}
+
+#help-sign::after {
+  content: "";
+  position: absolute;
+  width: 7%;
+  height: 25vh;
+  bottom: -25vh;
+  left: 11%;
+  background: linear-gradient(to right, grey, silver, grey);
+  box-shadow: -3px 3px 5px black;
+}
+
+#help-sign::before {
+  content: "";
+  position: absolute;
+  width: 7%;
+  height: 25vh;
+  bottom: -25vh;
+  right: 11%;
+  background: linear-gradient(to right, grey, silver, grey);
+  box-shadow: -3px 3px 5px black;
+}
+
+#contact-x {
+  position: absolute;
+  left: 90%;
+  top: 10%;
+  color: white;
+  border-radius: 2em;
+  width: 1.6em;
+  height: 1.6em;
+  line-height:1.25em;
+  text-align: center;
+  border: 2px solid white;
+  box-shadow: 0 0 5px orange, 0 0 16px orange, 0 0 5px gold, inset 0 0 5px orange;
+  cursor: pointer;
+}
+
+#alien_ship {
+  position: absolute;
+  width: 105px;
+  height: 100px;
+  background: url("https://imgur.com/8xXFxwr.jpg");
+  background-size: cover;
+  background-position: center;
+  left: 25%;
+  top: 74%;
+  transform: translate(-50%, -50%) rotate(-115deg);
+}
+
+#quotes_page {
+  position: absolute;
+  width: auto;
+  height: auto;
+  min-width: 150%;
+  left: 15%;
+  bottom: 85%;
+  transform: translate(-50%) rotate(-22deg);
+  display: none;
+  background: rgba(200, 200, 200, 0.1);
+  font-size: 90%;
+  padding: 5px;
+}
+
+#nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  padding: 10px 0 10px 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.85),
+    rgba(20, 20, 20, 0.5)
+  );
+  font-size: 19px;
+  margin: 0;
+  color: white;
+  border-bottom: 2px solid #444;
+}
+
+#nav .fa {
+  float: right;
+  position: relative;
+  left: 0;
+  top: 0;
+  margin: 6px 10px 6px 8px;
+  cursor:pointer;
+}
+
+#nav .fa:hover{
+  color:#999999;
+}
+
+#my_img {
+  position: absolute;
+  display: inline;
+  width: auto;
+  height: 90%;
+  margin: 0;
+  left: 5px;
+  top: 5%;
+  border-radius: 50%;
+}
+
+#alien-sign{
+  position:absolute;
+  width:auto;
+  height:130px;
+  bottom:calc(100% - 45px);
+  right:-15%;
+}
+
+#alien-sign:hover{
+  filter:hue-rotate(300deg);
+}
+	</style>
+</head>
+<body>
+<body>
+  <h1 id="welcome">Welcome to Space<br> loading may take a min.....</h1>
+  <div id="all_content">
+    <div id="main">
+      <div id="circle">
+        <div id="astronaut">
+          <div class="button" id="about">About</div>
+        </div>
+        <div id="sattelite">
+          <div class="button" id="projects">Projects</div>
+        </div>
+        <div id="sun">
+          <div></div>
+        </div>
+        <div id="moon">
+          <div class="button" id="contact"><span style="border:1px solid white;border-radius:1em;padding:2px;">Contact</span><br>|</div>
+        </div>
+
+        <div id="alien_ship">
+          <div id="quotes_page"></div>
+        </div>
+
+        <div id="dim2">
+          <img src="https://imgur.com/VTNbF8c.gif" id="bh">
+        </div>
+      </div>
+
+      <div class="buttons" id="left_button">
+        < </div>
+          <div class="buttons" id="right_button"> > </div>
+          <img src="https://imgur.com/ZtVo9SJ.jpg" id="planet" alt="planet"></img>
+          <div id="nav">
+            <img id="my_img" src="https://imgur.com/hiltcuo.jpg">
+            <span class="fa fa-gears"></span>
+            <span class="fa fa-send-o" onclick="go_to(-180)"></span>
+            <span class="fa fa-gamepad" onclick="go_to(-90)"></span>
+            <span class="fa fa-address-card" onclick="go_to(0)"></span>
+          </div>
+      </div>
+
+      <!--About page-->
+      <div id="container">
+        <div class="grid-container">
+          <div class="area1">
+            <h3>Details<span id="close" onclick="open_page('container')">x<span></h3>
+            <p>Team Name: Astroguide</p>
+            <p>Total Members : 18</p>
+            <p>Gender: 3 Female/3 Male</p>
+            <p>Occupation: Student</p>
+            <p>Location: Earth</p>
+
+          </div>
+          <div class="area2">
+            <h3>Skills</h3>
+            <div>
+              <span class="skill">HTML</span>
+              <span class="skill">CSS</span>
+              <span class="skill">JavaScript</span>
+              <span class="skill">jQuery</span>
+              <span class="skill">C#</span>
+              <span class="skill">C++</span>
+              <span class="skill">Java</span>
+              <span class="skill">Powerpoint</span>
+              <span class="skill">Word</span>
+              <span class="skill">Excel</span>
+              <span class="skill">Python</span>
+            </div>
+          </div>
+          <div class="area3">
+            <h3>Passions</h3>
+            <span class="skill">Programming</span>
+            <span class="skill">Game development</span>
+            <span class="skill">Web Art</span>
+            <span class="skill">Stories (SF / Horror)</span>
+            <span class="skill">Badminton</span>
+            <span class="skill">Tennis</span>
+            <span class="skill">Reading</span>
+          </div>
+          <div class="my_image">
+
+          </div>
+        </div>
+      </div>
+      <!--Projects page-->
+
+      <div id="cards-container">
+        <h3 style="cursor:pointer;" onclick="open_page('cards-container')"><i class="fa fa-arrow-circle-left"></i> Back</h3>
+        <h3>Solar Games  <span class="fa fa-gamepad"></span></h3>
+        <div class="element">
+          <!--1-->  <div class="obj">
+            <img src="https://databasespaces.carrd.co/assets/images/image17.jpg?v=e113c5c0" class=obj-img>
+            <div class="project_title">Planets arranging game for childern</div>
+            <a href="https://astroguide.w3spaces.com/planetsquiz5.html" target='_blank' class="glyphicon glyphicon-play-circle"></a>
+          </div>
+          <!--2-->
+          <div class="obj">
+            <img src="https://databasespaces.carrd.co/assets/images/gallery01/3743e4cc.jpg?v=7616ef2d" class=obj-img>
+            <div class="project_title">Save Planets</div>
+            <a href="https://spaceexploration.w3spaces.com/Spacegame.html" target='_blank' class="glyphicon glyphicon-play-circle"></a>
+          </div>
+          <!--3-->
+          <div class="obj">
+            <img src="https://databasespaces.carrd.co/assets/images/image16.jpg?v=7616ef2d" class=obj-img>
+            <div class="project_title">Travel Planet With Me  </div>
+            <a href="https://spaceexploration.w3spaces.com/trafficingplanet.html" target='_blank' class="glyphicon glyphicon-play-circle"></a>
+          </div>
+          <!--4-->
+          <div class="obj">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQL9G9VhL7J1KquvlD2URm9i_OlKihT9WFxayzkkKvWRQ&s" class=obj-img>
+            <div class="project_title">Space Tour</div>
+            <a href="https://astroguide.w3spaces.com/glsolarsystem.html" target='_blank' class="glyphicon glyphicon-play-circle"></a>
+          </div>
+    
+          
+         </div>
+        <h3>AI projects <span class="fa fa-paint-brush"></span></h3>
+        <div class="element">
+          <!--1-->
+        <!--1-->
+          <div class="obj">
+            <img src="https://databasespaces.carrd.co/assets/images/gallery01/4258f311.jpg?v=7616ef2d" class=obj-img>
+            <div class="project_title">Rendom solar system gen</div>
+            <a href="https://sugamprojects.w3spaces.com/rendomsolarsystemgen.html" target='_blank' class="glyphicon glyphicon-play-circle"></a>
+          </div>
+        </div>
+        <h3>Solar System <span class="fa fa-book"></span></h3>
+        <div class="element">
+          <!--1-->
+          <div class="obj">
+            <img src="https://databasespaces.carrd.co/assets/images/gallery01/02435003.jpg?v=8c50f1fd" class=obj-img>
+            <div class="project_title"> 3D PLANETS INFO.</div>
+            <a href="https://spaceexploration.w3spaces.com/3Dplanetsinfo.html" target='_blank' class="glyphicon glyphicon-play-circle"></a>
+          </div>
+          <!--2-->
+          <div class="obj">
+            <img src="https://databasespaces.carrd.co/assets/images/gallery01/4b123e35.jpg?v=8c50f1fd" class=obj-img>
+            <div class="project_title">2D Planets INFO,</div>
+            <a href="https://spaceexploration.w3spaces.com/planetsinfo.html" target='_blank' class="glyphicon glyphicon-play-circle"></a>
+          </div>
+          <!--3-->
+          <div class="obj">
+            <img src="https://databasespaces.carrd.co/assets/images/gallery01/c09e03a8.jpg?v=8c50f1fd" class=obj-img>
+            <div class="project_title">Planets 3D DATA</div>
+            <a href="https://spaceexploration.w3spaces.com/solarsystem.html" target='_blank' class="glyphicon glyphicon-play-circle"></a>
+          </div>
+          <!--4-->
+          <div class="obj">
+            <img src="https://databasespaces.carrd.co/assets/images/gallery01/effca5cf.jpg?v=8c50f1fd" class=obj-img>
+            <div class="project_title">Planets DATA 2.0</div>
+            <a href="https://spaceexploration.w3spaces.com/planetsdata2.0.html" target='_blank' class="glyphicon glyphicon-play-circle"></a>
+          </div>
+
+        </div>
+           <div class="obj">
+            <img src="https://databasespaces.carrd.co/assets/images/image16.jpg?v=7616ef2d" class=obj-img>
+            <div class="project_title">Exo Planet</div>
+            <a href="https://spaceexploration.w3spaces.com/trafficingplanet.html" target='_blank' class="glyphicon glyphicon-play-circle"></a>
+          </div>
+          
+        </div>
+          
+        </div>
+        
+
+        
+
+      <!--Contact-page-->
+      <div id="contact-container">
+        <i class="fa fa-facebook-official">
+          <a href="https://www.facebook.com/sugam.creations.2021/"></a>
+        </i>
+       
+        <i class="fa fa-free-code-camp">    <a href="https://kaisthaserverdesk.carrd.co/"></a></i>
+        <i class="fa fa-instagram">    <a href="https://www.instagram.com/kaisthasugam/"></a></i> 
+        <i class="fa fa-codepen">    <a href="https://kaisthagroup.carrd.co"></a></i>
+        <i class="fa fa-phone-square">    <a href="https://sugamkaistha01.carrd.co"></a></i>
+        <i class="fa fa-send-o">    <a href="https://sugamkaistha.carrd.co"></a></i>
+        <i class="fa fa-youtube-play">    <a href="https://www.youtube.com/SUGAMCREATIONS"></a></i>
+        <div id="contact-x">    <a href="https://sugamos.w3spaces.com/Kaisthagroups/home.html"></a></div>
+        <div id="help-sign">
+          <img src="https://imgur.com/cImPupF.jpg" id="alien-sign"></img>
+          Sugam Kaistha Is Here
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+    	const $ = (id) => document.getElementById(id);
+var position = 0;
+
+const rotate_the_circle = (side) => {
+  position += side;
+  $("circle").style.transform = `translate(-50%) rotate(${position}deg)`;
+};
+
+const am = () => {
+  autoMove = setInterval(f, 250);
+};
+
+//Added fallback for events
+var upEvent, downEvent;
+if (
+  "ontouchstart" in window ||
+  navigator.maxTouchPoints > 0 ||
+  navigator.msMaxTouchPoints > 0
+) {
+  // Touch Events Supported
+  downEvent = "touchstart";
+  upEvent = "touchend";
+} else {
+  //mouse is here
+  downEvent = "mousedown";
+  upEvent = "mouseup";
+}
+
+//copied & edited. Mouse Hold for buttons.
+var right_timer;
+$("right_button").addEventListener(upEvent, function () {
+  clearInterval(right_timer);
+  am();
+  //Clear timeout
+  return false;
+});
+$("right_button").addEventListener(downEvent, function () {
+  //Set timeout
+  clearInterval(autoMove);
+  intervalTimer(0.05);
+  clearInterval(right_timer);
+  right_timer = setInterval(function () {
+    rotate_the_circle(-1);
+  }, 50);
+  return false;
+});
+
+var left_timer;
+$("left_button").addEventListener(upEvent, function () {
+  clearInterval(left_timer);
+  am();
+  //Clear timeout
+  return false;
+});
+$("left_button").addEventListener(downEvent, function () {
+  //Set timeout
+  clearInterval(autoMove);
+  intervalTimer(0.05);
+  left_timer = setInterval(function () {
+    rotate_the_circle(1);
+  }, 50);
+  return false;
+});
+//
+
+//Function for auto movement of the stars.
+function f() {
+  intervalTimer(1);
+  rotate_the_circle(-0.25);
+}
+//the interval for the stars movement.
+var autoMove = setInterval(f, 250);
+//The interval transition for the stars movement.
+function intervalTimer(t) {
+  $("circle").style.transition = `transform ${t}s`;
+}
+
+function createStars() {
+  //Creating a star
+  let star = document.createElement("div");
+  $("circle").appendChild(star);
+  star.classList = "star";
+  //The x and y position of the star.
+  let left_p = Math.floor(Math.random() * $("circle").offsetWidth);
+  let right_p = Math.floor(Math.random() * $("circle").offsetHeight);
+  //Positioning.
+  star.style.left = left_p + "px";
+  star.style.top = right_p + "px";
+  //Adding the size of the stars.
+  let dimension = Math.floor(Math.random() * 5);
+  star.style.width = dimension + "px";
+  star.style.height = dimension + "px";
+}
+
+window.onload = function () {
+  document.getElementById("welcome").style.opacity = "0";
+  setTimeout(function(){
+    document.getElementById("all_content").style.opacity = "1";
+  },500);
+  //Creating all the stars.
+  for (let k = 0; k < 150; k++) {
+    createStars();
+  }
+
+  $("astronaut").addEventListener("click", function () {
+    open_page("container");
+  });
+  $("sattelite").addEventListener("click", function () {
+    open_page("cards-container");
+  });
+  $("moon").addEventListener("click", function () {
+    open_page("contact-container");
+  });
+  $("contact-x").addEventListener("click", function () {
+    open_page("contact-container");
+  });
+  $("dim2").addEventListener("click", rev_cols);
+  $("alien_ship").addEventListener("click", random_Q, { once: true });
+
+  $("circle").addEventListener("click", function () {
+    clearInterval(left_timer);
+    clearInterval(right_timer);
+    clearInterval(autoMove);
+    am();
+  });
+  //Wheel event for page rotation
+  $("main").addEventListener("wheel", function (evt) {
+    clearInterval(autoMove);
+    intervalTimer(0.35);
+    clearInterval(right_timer);
+    clearInterval(left_timer);
+    rotate_the_circle(Math.floor(-3 * (evt.deltaY / 100)));
+  });
+};
+
+//Opening and closing the pages( Skills, About and Contact )
+function open_page(page) {
+  if ($(page).style.display == "block") {
+    $("main").style.display = "block";
+    $(page).style.display = "none";
+    $(page).style.transform = "scale(0)";
+  } else {
+    $("main").style.display = "none";
+    $(page).style.display = "block";
+    setTimeout(function () {
+      $(page).style.transform = "scale(1)";
+    }, 250);
+  }
+}
+
+function rev_cols() {
+  if ($("main").style.filter == "hue-rotate(100deg)") {
+    $("main").style.filter = "hue-rotate(0deg)";
+  } else {
+    $("main").style.filter = "hue-rotate(100deg)";
+  }
+}
+
+const quotes = [
+  [
+    "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+    "Nelson Mandela"
+  ],
+  ["The way to get started is to quit talking and begin doing.", "Walt Disney"],
+  [
+    "If you look at what you have in life, you'll always have more. If you look at what you don't have in life, you'll never have enough.",
+    "oprah Winfrey"
+  ],
+  [
+    "Always remember that you are absolutely unique. Just like everyone else.",
+    "Margaret Mead"
+  ],
+  [
+    "The future belongs to those who believe in the beauty of their dreams.",
+    "Eleanor Roosevelt"
+  ],
+  [
+    "You will face many defeats in life, but never let yourself be defeated.",
+    "Maya Angelou"
+  ],
+  [
+    "Many of life's failures are people who did not realize how close they were to success when they gave up.",
+    "Thomas A. Edison"
+  ],
+  ["The only impossible journey is the one you never begin.", "Tony Robbins"],
+  ["Only a life lived for others is a life worthwhile.", "Albert Einstein"],
+  ["You only live once, but if you do it right, once is enough.", "Mae West"],
+  [
+    "Go confidently in the direction of your dreams! Live the life you've imagined.",
+    "Henry David Thoreau"
+  ],
+  ["Be yourself; everyone else is already taken.", "Oscar Wilde"],
+  ["Be the change that you wish to see in the world.", "Mahatma Gandhi"],
+  ["Always forgive your enemies; nothing annoys them so much.", "Oscar Wilde"],
+  [
+    "To live is the rarest thing in the world. Most people exist, that is all.",
+    "Oscar Wilde"
+  ]
+];
+
+function random_Q() {
+  let ranQ = Math.floor(Math.random() * quotes.length);
+  $("quotes_page").style.display = "block";
+  $("quotes_page").innerHTML =
+    quotes[ranQ][0] +
+    " - <span style = 'font-size:85%'>" +
+    quotes[ranQ][1] +
+    "</span>";
+  setTimeout(function () {
+    $("quotes_page").style.display = "none";
+    $("alien_ship").addEventListener("click", random_Q, { once: true });
+  }, 5000);
+}
+
+function go_to(x) {
+  position = x;
+  rotate_the_circle(0);
+  clearInterval(autoMove);
+  intervalTimer(1);
+}
+
+    </script>
+</body>
+</html>
