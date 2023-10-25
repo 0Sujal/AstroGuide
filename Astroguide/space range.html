@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style type="text/css">
+		html,body{
+	margin:0;
+	overflow:hidden;
+}
+
+.main{
+	z-index:0;
+	height:100vh;
+	width:100vw;
+background: radial-gradient(ellipse at bottom, #040e19 0%, #090a0f 100%);
+}
+
+.star{
+	bottom:-100vh;
+	position:absolute;
+	margin:auto;
+	background-color:#fff;
+	border-radius:50%;
+	  box-shadow: 0 0 .1rem #fff,
+              0 0 .1rem #fff,
+              0 0 1rem #fff,
+              0 0 0.5rem #fff,
+              0 0 1.8rem #fff,
+              inset 0 0 1rem #fff;
+}
+
+
+.lever{
+		opacity:0;
+    position: absolute;
+    right: 0;
+    bottom: 150px;
+    rotate: 270deg;
+}
+/********** Range Input Styles **********/
+/*Range Reset*/
+input[type="range"] {
+   -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    width: 15rem;
+}
+
+/* Removes default focus */
+input[type="range"]:focus {
+  outline: none;
+}
+
+/***** Chrome, Safari, Opera and Edge Chromium styles *****/
+/* slider track */
+input[type="range"]::-webkit-slider-runnable-track {
+	padding:10px;
+	 -webkit-appearance: none;
+background: linear-gradient(158deg, rgba(35,231,34,1) 0%, red 100%);
+	border-radius:20px;
+	border:5px solid white;
+}
+
+/* slider thumb */
+input[type="range"]::-webkit-slider-thumb {
+	  -webkit-appearance: none;
+         width: 40px;
+         height: 40px;
+				background:transparent;
+         background-image: url('https://assets.3ds.com/invest/iframe/gltf_story_3d-models_analytics_v1/gltf_story_3d-models_analytics_v1/gltf_story_3d-Models_Analytics/img/arrow.png');
+         background-size:40px;
+         background-repeat: no-repeat;
+         background-position: 50%;
+	rotate:90deg;
+}
+
+
+
+/******** Firefox styles ********/
+/* slider track */
+input[type="range"]::-moz-range-track {
+   background-color: red;
+   border-radius: 0.5rem;
+   height: 0.5rem;
+}
+
+/* slider thumb */
+input[type="range"]::-moz-range-thumb {
+   border: none; /*Removes extra border that FF applies*/
+   border-radius: 0; /*Removes default border-radius that FF applies*/
+
+   /*custom styles*/
+   background-color: red;
+   height: 2rem;
+   width: 1rem;
+}
+
+input[type="range"]:focus::-moz-range-thumb {
+  border: 0px solid #053a5f;
+  outline: none;
+  outline-offset: 0.125rem; 
+}
+
+.fire{
+	rotate: 180deg;
+    position: relative;
+    top: -10px;
+    z-index: 0;
+    width: 58px;
+    left: -4px;
+    right: 0;
+    margin: auto;
+	z-index:-1;
+	opacity:0;
+}
+
+.spacecraft{
+	width:50px;
+scale:1.8;
+}
+
+.spacecraft-container{
+	opacity:0;
+	z-index:0;
+	position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 50px;
+    height: 50px;
+	top:120vh;
+	display:flex;
+	justify-content:start;
+	align-items:start;
+	flex-direction:column;
+}
+
+.bullet{
+	position: absolute;
+    width: 107px;
+    rotate: 217deg;
+	z-index:0;
+	opacity:0;
+	
+}
+
+
+
+	</style>
+</head>
+<body>
+  <div class="main">
+	<div class="enemie"></div>
+	<div class="star"></div>
+	<input class="lever slider" id="pi_input" type="range" min="0.1" max="10" step="0.01" value="0.1" />
+
+	<div 
+			 id="spacecraft" class="spacecraft-container">
+		
+		<img class="spacecraft" src="https://clipart-library.com/images/yTkAEopLc.png">
+		<img class="fire" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/FireIcon.svg/750px-FireIcon.svg.png">
+	</div>
+	 
+</div>
+<img 
+				id="bullet"
+		 class="bullet" src="https://cutewallpaper.org/24/muzzle-flash-png/circle-muzzle-flash-transparent-png-stickpng.png">
+
+</div>
+<script src="https://assets.codepen.io/16327/gsap-latest-beta.min.js"></script>
+<script type="text/javascript">
+	const vw = (coef) => window.innerWidth * (coef / 100);
+const vh = (coef) => window.innerHeight * (coef / 100);
+let bullet = document.getElementById("bullet");
+let screenW = window.innerWidth;
+let screenH = window.innerHeight;
+	let counter = 0;
+function reportWindowSize() {
+	screenH = window.innerHeight; 
+	screenW = window.innerWidth;
+	gsap.to(spacecraft, { left: 0, bottom: 0, right: 0, top: 0 });
+}
+
+window.onresize = reportWindowSize;
+let bulletAnim = gsap.timeline({
+	paused: true,
+	timeScale: 1
+});
+
+bulletAnim.to(".bullet", {
+	opacity:1,
+	ease: Power2.easeIn,
+	scale: 4,
+	y:"-100vh",
+	duration:0.8
+});
+
+//creo le stelle
+let spacecraftContainer = document.querySelector("#spacecraft");
+let main = document.querySelector(".main");
+let lever = document.querySelector(".lever");
+let star = document.querySelector(".star");
+let fire = document.querySelector(".fire");
+let spacecraft = document.querySelector(".spacecraft");
+for (let i = 0; i < 500; i++) {
+	let randomLeft = getRandomInt(1, 100);
+	let randomTop = getRandomInt(1, 100);
+	let randomSize = getRandomInt(1, 5);
+	let clone = star.cloneNode(true);
+	clone.style.left = randomLeft + "%";
+	clone.style.top = randomTop + "%";
+	clone.style.width = randomSize + "px";
+	clone.style.height = "5px";
+	star.after(clone);
+}
+
+function getRandomInt(min, max) {
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
+}
+
+let stars = gsap.utils.toArray(".star");
+let tl = gsap.timeline();
+gsap.to(tl, 2, { timeScale: "0.1", ease: Power1.easeIn });
+tl.to(stars, { autoAlpha: 0 });
+tl
+	.fromTo(
+		stars,
+		{
+			autoAlpha: 0,
+			x: "random(-5, 5)",
+			translateY: -vw(100),
+			transformOrigin: "top"
+		},
+		{
+			autoAlpha: 1,
+			duration: 20,
+			translateY: vw(100),
+			x: "random(-5, 5)",
+			stagger: {
+				each: 1,
+				repeat: -1,
+				repeatRefresh: false
+			}
+		}
+	)
+	.progress(0.1);
+
+let upDown = gsap.to(spacecraftContainer, {
+	duration: 1,
+	y: 20,
+	ease: "circ.in",
+	repeat: -1,
+	yoyo: true
+});
+
+gsap.fromTo(
+	fire,
+	{ top: "-10px", scale: 0.8 },
+	{ duration: 0.8, repeat: -1, ease: Power1.easeIn, scale: 1,opacity:1,duration:1,delay:2 }
+);
+
+gsap.fromTo(
+	lever,
+	{ opacity: 0, right: "-40%" },
+	{ opacity: 1, right: "0%", duration: 0.3 }
+);
+
+gsap.fromTo(
+	spacecraftContainer,
+	{ opacity: 0, top: "120%", },
+	{ opacity: 1, top: "80%", duration: 0.3, }
+);
+
+document.addEventListener("input", (event) => {
+	gsap.to(tl, { timeScale: event.target.value, ease: Power1.easeIn });
+	if (event.target.value < 2) {
+		gsap.to(stars, { filter: "blur(0px)", height: "5px" });
+		gsap.to(spacecraft, { scale: 1.8, duration: 0.6 });
+	}
+
+	if (event.target.value > 2) {
+		gsap.to(stars, { filter: "blur(0.2px)", height: "6px" });
+		gsap.to(spacecraft, { scale: 1.6, duration: 0.6 });
+	}
+	if (event.target.value > 4) {
+		gsap.to(stars, { filter: "blur(0.5px)", height: "7px" });
+		gsap.to(spacecraft, { scale: 1.4, duration: 0.6 });
+	}
+	if (event.target.value > 6) {
+		gsap.to(stars, { filter: "blur(0.8px)", height: "8px" });
+		gsap.to(spacecraft, { scale: 1.2, duration: 0.6 });
+	}
+	if (event.target.value > 8) {
+		gsap.to(stars, { filter: "blur(1px)", height: "9px" });
+		gsap.to(spacecraft, { scale: 1, duration: 0.6 });
+	}
+});
+
+var state = {
+	left: false,
+	right: false,
+	up: false,
+	down: false,
+	space: false,
+	speed: 50
+};
+
+let obj = document.getElementById("spacecraft");
+
+
+function init() {
+
+	document.body.addEventListener("keydown", function (e) {
+		upDown.kill();
+		if (32 === e.keyCode) state.space = true;
+		if (37 === e.keyCode) state.left = true;
+		if (38 === e.keyCode) state.up = true;
+		if (39 === e.keyCode) state.right = true;
+		if (40 === e.keyCode) state.down = true;
+	});
+
+	document.body.addEventListener("keyup", function (e) {
+		gsap.to(spacecraft, { skewX: 0, skewY: 0 });
+		if (32 === e.keyCode) {
+			state.space = false;
+		}
+		if (37 === e.keyCode) state.left = false;
+		if (38 === e.keyCode) state.up = false;
+		if (39 === e.keyCode) state.right = false;
+		if (40 === e.keyCode) state.down = false;
+	});
+
+	// start event loop
+	requestAnimationFrame(tick);
+}
+
+function tick() {
+
+	var left = parseInt(obj.style.left);
+	if (isNaN(left)) left = 0;
+
+	var top = parseInt(obj.style.top);
+	if (isNaN(top)) top = (65 / 100) * screenH;
+	if (state.space) {
+
+		
+		if (bulletAnim.isActive()) {
+		} else { 
+					const rectSpacecraft = spacecraft.getBoundingClientRect();
+		bullet.style.top = rectSpacecraft.top+"px";
+		bullet.style.left = ""+rectSpacecraft.left+"px";
+			bulletAnim.restart();
+			bulletAnim.play();
+		}
+	}
+
+	if (state.right) {
+		if (left + state.speed < (65 / 100) * screenW) {
+			gsap.to(spacecraft, { skewX: -7 });
+			obj.style.left = left + state.speed + "px";
+		} else {
+			gsap.to(spacecraft, { skewX: -7 });
+			obj.style.left = (65 / 100) * screenW + "px";
+		}
+	}
+	if (state.left) {
+		if (left - state.speed > -((80 / 100) * screenW)) {
+			gsap.to(spacecraft, { skewX: 7 });
+			obj.style.left = left - state.speed + "px";
+		} else {
+			gsap.to(spacecraft, { skewX: 7 });
+			obj.style.left = "-" + (80 / 100) * screenW + "px";
+		}
+	}
+	if (state.up) {
+		counter++;
+if(counter === 1){
+	top = ((80 / 100) * screenH);
+}
+		
+	
+		if (top - state.speed > 50) {
+			gsap.to(spacecraft, { skewY: 7 });
+			obj.style.top = top - state.speed + "px";
+		} else {
+			gsap.to(spacecraft, { skewY: 7 });
+			obj.style.top = "50px";
+		}
+	}
+	if (state.down) {
+		if (top + state.speed < (70 / 100) * screenH) {
+			obj.style.top = top + state.speed + "px";
+			gsap.to(spacecraft, { skewY: -7 });
+		} else {
+			gsap.to(spacecraft, { skewY: -7 });
+			obj.style.top = (70 / 100) * screenH + "px";
+		}
+	}
+
+	// schedule the next tick of the event loop
+	requestAnimationFrame(tick);
+}
+
+init();
+
+/*document.addEventListener('mousemove', mouseMoveFunc);
+function mouseMoveFunc(e) {
+  const depth = 10;
+  const moveX = ((e.pageX)-(window.innerWidth/2))/depth + 30;
+  const moveY = ((e.pageY)-(window.innerHeight/2))/depth + 30;
+  gsap.to(spacecraftContainer, {
+    duration: 1,
+    translateX: moveX,
+    translateY: moveY,
+		ease: Power3.easeOut,
+    overwrite: true
+  });
+}*/
+
+function isInViewport(element) {
+	const rect = element.getBoundingClientRect();
+	return (
+		rect.top >= 0 &&
+		rect.left >= 0 &&
+		rect.bottom <=
+			(window.innerHeight || document.documentElement.clientHeight) &&
+		rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+	);
+}
+
+</script>
+</body>
+</html>

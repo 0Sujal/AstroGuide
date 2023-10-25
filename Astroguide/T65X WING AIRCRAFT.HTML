@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        /* 
+|-----------------------------------------
+| Credits: Paul Vaxevanis
+| info@paulv.gr 
+| http://paulv.gr 
+|-----------------------------------------
+*/
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,800');
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    background: #010010;
+    position: relative;
+    -webkit-transition: all .6s ease-in-out;
+    -o-transition: all .6s ease-in-out;
+    transition: all .6s ease-in-out;
+}
+.night-sky:before {
+    content: '';
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    -moz-animation: stars linear 20s infinite;
+    -webkit-animation: stars linear 20s infinite;
+    animation: stars linear 20s infinite;
+    background: #000 url(http://i.imgur.com/IzLemLV.png) repeat 0 0;
+}
+.spacecraft {
+    position: fixed;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    margin-bottom: 140px;
+    bottom: 0;
+    max-width: 200px;
+    transform: scale(.7);
+    -webkit-transition: all .6s ease-in-out;
+    -o-transition: all .6s ease-in-out;
+    transition: all .6s ease-in-out;
+}
+.body {
+    border-bottom: 430px solid #dcdac8;
+    border-left: 23px solid rgba(0, 0, 0, 0);
+    border-right: 23px solid rgba(0, 0, 0, 0);
+    border-radius: 10px;
+    height: 0;
+    width: 25px;
+}
+.body:before {
+    border-bottom: 222px solid #f3621a;
+    border-left: 13px solid rgba(0, 0, 0, 0);
+    border-right: 13px solid rgba(0, 0, 0, 0);
+    border-radius: 10px;
+    height: 0;
+    top: 55px;
+    left: 7px;
+    width: 31px;
+}
+.body:after {
+    width: 31px;
+    height: 40px;
+    margin: 12px 0 0 -1px;
+    background: #f3621a;
+    -moz-border-radius: 20px / 50px;
+    -webkit-border-radius: 20px / 50px;
+    border-radius: 20px / 50px;
+    top: 25px;
+    left: 21px;
+}
+.nose {
+    width: 25px;
+    height: 40px;
+    margin: 12px 0 0 -1px;
+    background: #dcdac8;
+    -moz-border-radius: 20px / 50px;
+    -webkit-border-radius: 20px / 50px;
+    border-radius: 20px / 50px;
+    top: -30px;
+    left: 24px;
+    position: absolute;
+}
+.sensor {
+    border-bottom: 323px solid #dcdac8;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    height: 0;
+    position: absolute;
+    height: 230px;
+    width: 18px;
+    bottom: 120px;
+    left: 10px;
+    z-index: 9;
+}
+.sensor:before {
+    background: #c8c6b4;
+    width: 10px;
+    height: 50px;
+    border: 3px solid #f3621a;
+    border-bottom: 4px solid #f3621a;
+    bottom: -220px;
+    left: 1px;
+}
+.sensor:after {
+    width: 15px;
+    height: 60px;
+    background: #f3621a;
+    bottom: -140px;
+    left: 1px
+}
+.cabin, .frame {
+    border-bottom: 60px solid #90abbd;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    height: 0;
+    width: 16px;
+    position: absolute;
+    bottom: 160px;
+    left: 11px;
+    z-index: 10
+}
+.cabin:before, .frame:before {
+    border-top: 30px solid #90abbd;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    height: 0;
+    width: 16px;
+    top: 60px;
+    left: -16px;
+    z-index: 11
+}
+.cabin:after {
+    width: 12px;
+    height: 50px;
+    border: 3px solid #90abbd;
+    background: #bbc6ce;
+    position: absolute;
+    top: 4px;
+    left: -1px;
+    z-index: 11
+}
+.frame {
+    border-bottom: 50px solid #c8c6b4;
+    transform: scale(.8, .8);
+    left: -16px;
+    top: 12px;
+    z-index: 11
+}
+.frame:before {
+    border-top: 30px solid #c8c6b4;
+    bottom: 0;
+    margin-top: -4px;
+}
+.deflector {
+    width: 18px;
+    height: 110px;
+    background: #67686f;
+    position: absolute;
+    bottom: 10px;
+    left: 25px
+}
+.r2d2 {
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 50%;
+    border: 2px dashed blue
+}
+.r2d2:before {
+    -webkit-clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    background-color: #455694;
+    height: 14px;
+    width: 14px;
+}
+.r2d2:after {
+    width: 5px;
+    height: 5px;
+    background: #fff;
+    top: 7px;
+    left: 7px;
+    border-radius: 50%;
+}
+.wingR, .wingL {
+    width: 201px;
+    height: 36px;
+    background: #dcdac8;
+    border-top: 4px solid #444;
+    position: absolute;
+    margin-top: 15px;
+    top: 300px;
+    right: -60px;
+}
+.wingL {
+    left: -190px;
+}
+.wingR:after {
+    border-width: 61px 182px 0 20px;
+}
+.wingL:after {
+    border-width: 61px 20px 0px 181px;
+}
+.break .wingR:after, .break .wingL:after {
+    margin-top: 55px
+}
+.wingR:after, .wingL:after {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    margin-top: 35px;
+    border-color: #dcdac8 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    z-index: -1;
+}
+.turbineR, .turbineL {
+    width: 40px;
+    height: 70px;
+    background: #c8c6b4;
+    border-top: 5px solid #e34b0f;
+    border-bottom: 4px solid #67686f;
+    position: absolute;
+    top: 300px;
+    left: 70px;
+    z-index: 3;
+}
+
+.turbineL {
+    left: -40px;
+}
+.turbineR:before, .turbineL:before, .turbineR:after, .turbineL:after {
+    width: 24px;
+    height: 25px;
+    background: #c8c6b4;
+    border-bottom: 4px solid #67686f;
+    position: absolute;
+    top: 74px;
+    left: 8px;
+    border-radius: 2px;
+}
+.turbineR:before, .turbineL:before {
+    border-radius: 12px 12px 0 0;
+}
+.turbineR:after, .turbineL:after {
+    width: 30px;
+    left: 5px;
+    top: 102px;
+    border-bottom: 14px solid #67686f;
+}
+.thrust {
+    width: 20px;
+    height: 0px;
+    border-width: 0px 6px 5px;
+    border-style: solid;
+    border-color: rgb(0, 0, 0) rgba(0, 0, 0, 0) #dcdac8;
+    border-top: 0px solid rgb(0, 0, 0);
+    border-bottom: 20px solid #ddd;
+    top: 130px;
+    left: 4px;
+    position: absolute;
+}
+.thrust:after, .thrust:before {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 100px 8px 0 8px;
+    border-color: yellow transparent transparent transparent;
+    top: 20px;
+    left: 2px;
+    opacity: 0
+}
+.thrust:after {
+    border-width: 50px 8px 0 8px;
+    border-color: #f3621a transparent transparent transparent;
+}
+.canonL, .canonR {
+    width: 24px;
+    height: 80px;
+    background: #c8c6b4;
+    border-bottom: 4px solid #67686f;
+    position: absolute;
+    top: -44px;
+    left: 7px;
+    border-radius: 4px;
+    z-index: 4;
+}
+.canonR {
+    left: 170px;
+}
+.canonL:before, .canonR:before {
+    width: 24px;
+    height: 10px;
+    background: #fff;
+    border-top: 2px dashed #67686f;
+}
+.canonL:after, .canonR:after {
+    width: 6px;
+    height: 0px;
+    border-width: 0px 6px 5px;
+    border-style: solid;
+    border-color: rgb(0, 0, 0) rgba(0, 0, 0, 0) #dcdac8;
+    border-top: 0px solid rgb(0, 0, 0);
+    border-bottom: 10px solid #c8c6b4;
+    border-radius: 30%;
+    top: 84px;
+    left: 2px;
+}
+.laser-barrel {
+    width: 10px;
+    height: 50px;
+    background: #ddd;
+    border-top: 14px solid #f3621a;
+    bottom: 80px;
+    left: 7px;
+    position: absolute;
+}
+.laser-barrel:before {
+    height: 50px;
+    width: 6px;
+    background: #c8c6b4;
+    border-top: 5px solid #f3621a;
+    bottom: 64px;
+    left: 2px;
+}
+.laser-barrel:after {
+    width: 10px;
+    height: 10px;
+    border: 4px solid #f3621a;
+    background: #f3621a;
+    border-radius: 0 0 4px 4px;
+    bottom: 118px;
+    left: -3px;
+}
+.laser-tip {
+    width: 4px;
+    height: 50px;
+    background: #ddd;
+    bottom: 118px;
+    left: 3px;
+    position: absolute;
+}
+.laser-beam {
+    height: 10px;
+    width: 1px;
+    border-width: 0 2px;
+    border-style: solid;
+    border-color: rgba(255, 4, 4, 0.54);
+    background: #fcd000;
+    position: absolute;
+    bottom: 0;
+}
+.decor-2 {
+    position: absolute;
+    background: #f3621a;
+    height: 10px;
+    width: 70px;
+    right: 40px;
+    bottom: -3px;
+}
+.decor-2:after {
+    background: #f3621a;
+    height: 24px;
+    width: 20px;
+    bottom: 4px;
+}
+.wingR .decor-2 {
+    left: 80px;
+    -webkit-transform: skewY(-20deg);
+    -moz-transform: skewY(-20deg);
+    -o-transform: skewY(-20deg);
+}
+.wingL .decor-2 {
+    right: 80px;
+    -webkit-transform: skewY(20deg);
+    -moz-transform: skewY(20deg);
+    -o-transform: skewY(20deg);
+}
+.wingR .decor-2:after {
+    right: 0;
+    -webkit-transform: skewY(20deg);
+    -moz-transform: skewY(20deg);
+    -o-transform: skewY(20deg);
+}
+.wingL .decor-2:after {
+    left: 0;
+    -webkit-transform: skewY(-20deg);
+    -moz-transform: skewY(-20deg);
+    -o-transform: skewY(-20deg);
+}
+.decor-1 {
+    height: 20px;
+    width: 10px;
+    position: absolute;
+    top: 53px;
+    background: #f3621a;
+}
+.decor-1:after, .decor-1:before {
+    height: 20px;
+    width: 10px;
+    top: 0;
+    background: #f3621a;
+    -webkit-transform: skewY(0deg);
+    -moz-transform: skewY(0deg);
+    -o-transform: skewY(0deg);
+}
+.wingR .decor-1:after, .wingR .decor-1:before {
+    left: 20px;
+}
+.wingR .decor-1 {
+    left: 80px;
+    -webkit-transform: skewY(-20deg);
+    -moz-transform: skew(-20deg);
+    -o-transform: skew(-20deg);
+}
+.wingR .decor-1:before {
+    left: 40px;
+}
+.wingL .decor-1:after, .wingL .decor-1:before {
+    right: 20px;
+}
+.wingL .decor-1 {
+    right: 80px;
+    -webkit-transform: skewY(20deg);
+    -moz-transform: skew(20deg);
+    -o-transform: skew(20deg);
+}
+.wingL .decor-1:before {
+    right: 40px;
+}
+.body:before, .night-sky:after, .sensor:before, .sensor:after, .cabin:before, .cabin:after, .frame:before, .r2d2:before, .r2d2:after, .wingR:after, .wingL:after, .turbineL:after, .turbineR:after, .turbineL:before, .turbineR:before, .thrust:after, .thrust:before, .canonL:before, .canonL:after, .canonR:before, .canonR:after, .laser-barrel:before, .laser-barrel:after, .decor-1:before, .decor-1:after, .decor-2:after {
+    content: '';
+    display: block;
+    position: absolute;
+}
+.started .thrust:before {
+    -webkit-animation: blast-off .1s infinite;
+    -moz-animation: blast-off .1s infinite;
+    -ms-animation: blast-off .1s infinite;
+    -o-animation: blast-off .1s infinite;
+    opacity: 1;
+}
+.started .thrust:after {
+    -webkit-animation: blast-off-hot .2s infinite;
+    -moz-animation: blast-off-hot .2s infinite;
+    -ms-animation: blast-off-hot .2s infinite;
+    -o-animation: blast-off-hot .2s infinite;
+    opacity: 1;
+}
+.r2d2 {
+    -webkit-animation: spin 10s ease-in-out 2s infinite alternate;
+    -moz-animation: spin 10s ease-in-out 2s infinite alternate;
+    -ms-animation: spin 10s ease-in-out 2s infinite alternate;
+    -o-animation: spin 10s ease-in-out 2s infinite alternate;
+    -webkit-animation-delay: 4s;
+    /* Safari 4.0 - 8.0 */
+    animation-delay: 4s;
+}
+.firing .laser-beam {
+    -webkit-animation: fire 1s ease-in-out .1s infinite;
+}
+.started .spacecraft {
+    -webkit-animation: fly 15s ease-in-out 2s infinite;
+}
+.return-to-base .spacecraft {
+    -webkit-animation: fadein 5s ease-in-out;
+}
+.started .night-sky:before {
+    -moz-animation: stars linear 0.55s infinite;
+    -webkit-animation: stars linear 0.55s infinite;
+    animation: stars linear 0.55s infinite;
+}
+
+/* 
+|----------------------------------------
+|  CSS Animations 
+|----------------------------------------
+*/
+
+
+/* Night Sky Stars */
+
+@-moz-keyframes stars {
+    to {
+        background-position: 0 240px;
+    }
+}
+@-webkit-keyframes stars {
+    to {
+        background-position: 0 240px;
+    }
+}
+@keyframes stars {
+    to {
+        background-position: 0 240px;
+    }
+}
+
+/* Lazer Open Fire */
+
+@-moz-keyframes fire {
+    0% {
+        bottom: 60px;
+        height: 40px;
+    }
+    1% {
+        margin-bottom: 10px;
+    }
+    99% {
+        margin-bottom: 999px;
+        height: 200px;
+        opacity: 0
+    }
+}
+@-webkit-keyframes fire {
+    0% {
+        bottom: 60px;
+        height: 40px;
+    }
+    1% {
+        margin-bottom: 10px;
+    }
+    99% {
+        margin-bottom: 999px;
+        height: 200px;
+        opacity: 0
+    }
+}
+@keyframes fire {
+    0% {
+        bottom: 60px;
+        height: 40px;
+    }
+    1% {
+        margin-bottom: 10px;
+    }
+    99% {
+        margin-bottom: 999px;
+        height: 200px;
+        opacity: 0
+    }
+}
+
+/* FadeIn */
+
+@-moz-keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+    99% {
+        opacity: 1;
+    }
+}
+@-webkit-keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+    99% {
+        opacity: 1;
+    }
+}
+@keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+    99% {
+        opacity: 1;
+    }
+}
+
+/* Fly */
+
+@-moz-keyframes fly {
+    0%, 100% {
+        transform: scale(.7);
+        left: 0;
+    }
+    10% {
+        transform: scale(1);
+        left: 0;
+    }
+    20% {
+        transform: rotate(-4deg) scale(.6);
+        left: calc(50%);
+    }
+    30% {
+        transform: scale(.7);
+        left: 0;
+    }
+    40% {
+        transform: rotate(4deg) scale(.6);
+        left: calc(-50%);
+        opacity: 1
+    }
+    50% {
+        transform: scale(.2);
+        left: 0;
+        opacity: .9;
+        -webkit-filter: saturate(0.2);
+    }
+    70% {
+        opacity: 1
+    }
+    90% {
+        transform: scale(1);
+        left: 0;
+    }
+}
+@-webkit-keyframes fly {
+    0%, 100% {
+        transform: scale(.7);
+        left: 0;
+    }
+    10% {
+        transform: scale(1);
+        left: 0;
+    }
+    20% {
+        transform: rotate(-4deg) scale(.6);
+        left: calc(50%);
+    }
+    30% {
+        transform: scale(.7);
+        left: 0;
+    }
+    40% {
+        transform: rotate(4deg) scale(.6);
+        left: calc(-50%);
+        opacity: 1
+    }
+    50% {
+        transform: scale(.2);
+        left: 0;
+        opacity: .9;
+        -webkit-filter: saturate(0.2);
+    }
+    70% {
+        opacity: 1
+    }
+    90% {
+        transform: scale(1);
+        left: 0;
+    }
+}
+@keyframes fly {
+    0%, 100% {
+        transform: scale(.7);
+        left: 0;
+    }
+    10% {
+        transform: scale(1);
+        left: 0;
+    }
+    20% {
+        transform: rotate(-4deg) scale(.6);
+        left: calc(50%);
+    }
+    30% {
+        transform: scale(.7);
+        left: 0;
+    }
+    40% {
+        transform: rotate(4deg) scale(.6);
+        left: calc(-50%);
+        opacity: 1
+    }
+    50% {
+        transform: scale(.2);
+        left: 0;
+        opacity: .9;
+        -webkit-filter: saturate(0.2);
+    }
+    70% {
+        opacity: 1
+    }
+    90% {
+        transform: scale(1);
+        left: 0;
+    }
+}
+
+/* blast off */
+
+@-webkit-keyframes blast-off {
+    0%, 100% {
+        left: 0px;
+    }
+    1% {
+        left: 2px;
+    }
+    2% {
+        left: 2px;
+        border-color: red transparent transparent transparent
+    }
+    3% {
+        left: -2px;
+    }
+    4% {
+        left: 0px;
+    }
+    5% {
+        left: -2px;
+        border-color: orange transparent transparent transparent
+    }
+    6% {
+        left: 5px;
+    }
+    7% {
+        left: 2px;
+    }
+    8% {
+        left: -8px;
+        border-color: orange transparent transparent transparent
+    }
+    9% {
+        left: 6px;
+    }
+    10% {
+        left: -9px;
+    }
+    11% {
+        left: -5px;
+    }
+    12% {
+        left: 5px;
+    }
+}
+@-moz-keyframes blast-off {
+    0%, 100% {
+        left: 0px;
+    }
+    1% {
+        left: 2px;
+    }
+    2% {
+        left: 2px;
+        border-color: red transparent transparent transparent
+    }
+    3% {
+        left: -2px;
+    }
+    4% {
+        left: 0px;
+    }
+    5% {
+        left: -2px;
+        border-color: orange transparent transparent transparent
+    }
+    6% {
+        left: 5px;
+    }
+    7% {
+        left: 2px;
+    }
+    8% {
+        left: -8px;
+        border-color: orange transparent transparent transparent
+    }
+    9% {
+        left: 6px;
+    }
+    10% {
+        left: -9px;
+    }
+    11% {
+        left: -5px;
+    }
+    12% {
+        left: 5px;
+    }
+}
+@-o-keyframes blast-off {
+    0%, 100% {
+        left: 0px;
+    }
+    1% {
+        left: 2px;
+    }
+    2% {
+        left: 2px;
+        border-color: red transparent transparent transparent
+    }
+    3% {
+        left: -2px;
+    }
+    4% {
+        left: 0px;
+    }
+    5% {
+        left: -2px;
+        border-color: orange transparent transparent transparent
+    }
+    6% {
+        left: 5px;
+    }
+    7% {
+        left: 2px;
+    }
+    8% {
+        left: -8px;
+        border-color: orange transparent transparent transparent
+    }
+    9% {
+        left: 6px;
+    }
+    10% {
+        left: -9px;
+    }
+    11% {
+        left: -5px;
+    }
+    12% {
+        left: 5px;
+    }
+}
+
+/* Hot blast off  */
+
+@-webkit-keyframes blast-off-hot {
+    0%, 100% {
+        left: 2px;
+        border-width: 60px 8px 0 8px;
+    }
+    1% {
+        left: -2px;
+        border-width: 70px 10px 0 9px;
+    }
+    2% {
+        left: 0px;
+        border-width: 55px 7px 0 8px;
+        border-color: red transparent transparent transparent
+    }
+    3% {
+        left: -4px;
+        border-width: 65px 10px 0 9px;
+    }
+    4% {
+        left: 0px;
+        border-width: 100px 10px 0 9px;
+    }
+    5% {
+        left: 5px;
+        border-width: 65px 10px 0 9px;
+    }
+    6% {
+        left: -2px;
+        border-width: 55px 7px 0 8px;
+        border-color: red transparent transparent transparent
+    }
+    7% {
+        left: 4px;
+        border-width: 100px 10px 0 9px;
+    }
+    8% {
+        left: -8px;
+        border-width: 65px 10px 0 9px;
+    }
+    9% {
+        left: 5px;
+        border-width: 55px 7px 0 8px;
+        border-color: red transparent transparent transparent
+    }
+    10% {
+        left: -3px;
+        border-width: 95px 7px 0 8px;
+    }
+    11% {
+        left: 9px;
+        border-width: 65px 10px 0 9px;
+    }
+    12% {
+        left: -4px;
+        border-width: 85px 10px 0 9px;
+    }
+}
+@-moz-keyframes blast-off {
+    0%, 100% {
+        left: 2px;
+        border-width: 60px 8px 0 8px;
+    }
+    1% {
+        left: -2px;
+        border-width: 70px 10px 0 9px;
+    }
+    2% {
+        left: 0px;
+        border-width: 55px 7px 0 8px;
+        border-color: red transparent transparent transparent
+    }
+    3% {
+        left: -4px;
+        border-width: 65px 10px 0 9px;
+    }
+    4% {
+        left: 0px;
+        border-width: 100px 10px 0 9px;
+    }
+    5% {
+        left: 5px;
+        border-width: 65px 10px 0 9px;
+    }
+    6% {
+        left: -2px;
+        border-width: 55px 7px 0 8px;
+        border-color: red transparent transparent transparent
+    }
+    7% {
+        left: 4px;
+        border-width: 100px 10px 0 9px;
+    }
+    8% {
+        left: -8px;
+        border-width: 65px 10px 0 9px;
+    }
+    9% {
+        left: 5px;
+        border-width: 55px 7px 0 8px;
+        border-color: red transparent transparent transparent
+    }
+    10% {
+        left: -3px;
+        border-width: 95px 7px 0 8px;
+    }
+    11% {
+        left: 9px;
+        border-width: 65px 10px 0 9px;
+    }
+    12% {
+        left: -4px;
+        border-width: 85px 10px 0 9px;
+    }
+}
+@-o-keyframes blast-off {
+    0%, 100% {
+        left: 2px;
+        border-width: 60px 8px 0 8px;
+    }
+    1% {
+        left: -2px;
+        border-width: 70px 10px 0 9px;
+    }
+    2% {
+        left: 0px;
+        border-width: 55px 7px 0 8px;
+        border-color: red transparent transparent transparent
+    }
+    3% {
+        left: -4px;
+        border-width: 65px 10px 0 9px;
+    }
+    4% {
+        left: 0px;
+        border-width: 100px 10px 0 9px;
+    }
+    5% {
+        left: 5px;
+        border-width: 65px 10px 0 9px;
+    }
+    6% {
+        left: -2px;
+        border-width: 55px 7px 0 8px;
+        border-color: red transparent transparent transparent
+    }
+    7% {
+        left: 4px;
+        border-width: 100px 10px 0 9px;
+    }
+    8% {
+        left: -8px;
+        border-width: 65px 10px 0 9px;
+    }
+    9% {
+        left: 5px;
+        border-width: 55px 7px 0 8px;
+        border-color: red transparent transparent transparent
+    }
+    10% {
+        left: -3px;
+        border-width: 95px 7px 0 8px;
+    }
+    11% {
+        left: 9px;
+        border-width: 65px 10px 0 9px;
+    }
+    12% {
+        left: -4px;
+        border-width: 85px 10px 0 9px;
+    }
+}
+
+/* spin r2d2 */
+
+@-webkit-keyframes spin {
+    0%, 100% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+    }
+    65% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+    80% {
+        -webkit-transform: rotate(-40deg);
+        transform: rotate(-40deg);
+    }
+}
+@-moz-keyframes spin {
+    0%, 100% {
+        -ms-transform: rotate(0);
+        transform: rotate(0);
+    }
+    65% {
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+    85% {
+        -ms-transform: rotate(-40deg);
+        transform: rotate(-40deg);
+    }
+}
+@-o-keyframes spin {
+    0%, 100% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+    }
+    65% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+    85% {
+        -webkit-transform: rotate(-40deg);
+        transform: rotate(-40deg);
+    }
+}
+
+/* break layers apart effect  */
+
+.break .sensor {
+    left: 140px;
+    bottom: 160px
+}
+.break .cabin {
+    left: -70px;
+    bottom: 180px;
+}
+.break .deflector {
+    bottom: -160px
+}
+.break .wingR {
+    right: -160px;
+}
+.break .wingL {
+    left: -290px;
+}
+.break .turbineL {
+    left: -70px;
+}
+.break .turbineR {
+    left: 100px;
+}
+.break .thrust {
+    top: 160px
+}
+.break .canonR {
+    left: 240px
+}
+.break .canonL {
+    left: -60px
+}
+.break .laser-barrel {
+    bottom: 100px;
+}
+.spacecraft div {
+    -webkit-transition: all .6s ease-in-out;
+    -o-transition: all .6s ease-in-out;
+    transition: all .6s ease-in-out;
+}
+
+/* Buttons */
+
+.gamepad {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+}
+.start-button, .fire-button, .break-button {
+    width: 50px;
+    height: 50px;
+    border: 5px inset #47cf73;
+    background: #47cf73;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 2em;
+    font-weight: 800;
+    text-align: center;
+    line-height: 50px;
+    cursor: crosshair;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .2);
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+.fire-button {
+    background: #ffb406;
+    margin-left: 40px;
+    border-color: orange;
+}
+.break-button {
+    background: #2196F3;
+    margin-left: -10px;
+    margin-top: -54px;
+    border-color: #03A9F4;
+    width: 30px;
+    height: 30px;
+    font-size: 1em;
+    line-height: 34px;
+}
+.toggled {
+    border-color: grey;
+}
+
+/* modalbox */
+
+.modalbox {
+    position: fixed;
+    width: 90%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    margin-top: 10%;
+    background: #FFF;
+    -webkit-transition: all .6s ease-in-out;
+    -o-transition: all .6s ease-in-out;
+    transition: all .6s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+}
+.show-modalbox .modalbox {
+    position: absolute;
+    opacity: 1;
+    visibility: visible;
+}
+.modal-body {
+    color: #888;
+    padding: 20px 10px;
+}
+.leader {
+    color: #fff;
+    background: #f0702e;
+    padding: 1px 10px;
+    text-align: center;
+    position: fixed;
+    bottom: 20px;
+    z-index: 99999;
+}
+.leader a.modal-toggle, .modalbox a.modal-toggle {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    line-height: 1.2em;
+    text-align: center;
+    border: 4px solid rgb(255, 255, 255);
+    color: #fff;
+    border-radius: 50%;
+    text-decoration: none;
+}
+.modalbox a.modal-toggle {
+    border: 4px solid rgba(101, 101, 101, 0.3);
+    color: #47cf73;
+    float: right;
+    font-weight: 800;
+}
+.col-3 {
+    width: 33%;
+    float: left;
+}
+    </style>
+</head>
+<body>
+<body class="return-to-base">
+<div class="leader"><h3>T-65 X-wing starfighter <a href="javascript:;" id="modal-toggle" class="modal-toggle">i</a></h3></div>
+<div class="stars">
+  <div class="night-sky">
+    <div id="x-wing" class="spacecraft">
+      <div class="body">
+        <div class="nose"></div>
+        <div class="sensor"></div>
+        <div class="cabin"> 
+          <div class="frame"></div>
+          </div>
+            <div class="deflector">
+          <div class="r2d2"></div>
+        </div>
+      </div>
+      <div class="wingR">
+        <div class="canonR">
+          <span class="laser-barrel">
+            <span class="laser-tip">
+              <span class="laser-beam"></span>
+            </span>      
+          </span>
+        </div>
+        <div class="decor-1"></div>
+        <div class="decor-2"></div>
+      </div>
+      <div class="wingL">
+        <div class="canonL">
+          <span class="laser-barrel">
+            <span class="laser-tip">
+              <span class="laser-beam"></span>
+            </span>      
+          </span>
+        </div>
+        <div class="decor-1"></div>
+        <div class="decor-2"></div>
+      </div>
+      <div class="turbineR">
+        <div class="thrust"></div>
+      </div>
+      <div class="turbineL">
+        <div class="thrust"></div>
+      </div>
+
+      </div>    
+    </div>
+</div>  
+  
+<div class="gamepad">
+  <div id="start" class="start-button">S</div>
+  <div id="open-fire" class="fire-button">F</div>
+  <div id="break" class="break-button">B</div>
+</div>
+  
+<div class="modalbox">
+   <div class="modal-body">
+     <a href="javascript:;" id="modal-toggle" class="modal-toggle">x</a>
+     <h3>T-65 X-wing starfighter Specs</h3>
+     <div class="col-3">
+      <h4>Production information</h4>
+      <ul>
+        <li>Manufacturer:Incom Corporation</li>
+        <li>Designer:Vors Voorhorian</li>
+        <li>Line:X-wing starfighter</li>
+        <li>Model:T-65</li>
+        <li>Class:Starfighter</li>
+        <li>Cost: 149,999 credits (new), 90,000 credits (used)</li>
+      </ul>
+        <h4>Usage</h4>
+       Role(s): Space superiority starfighter, Escort
+     </div>
+     <div class="col-3"> 
+      <h4>Technical specifications</h4>
+      <ul>
+        <li>Length: 12.5 meters</li>
+        <li>Maximum acceleration: 3,700 G 16 MGLT/s</li>
+        <li>MGLT:100 MGLT</li>
+        <li>Maximum atmospheric speed: 1,050 km/h</li>
+        <li>Maneuverability rating:75 DPF</li>
+        <li>Engine unit(s): Incom 4L4 fusial thrust engines rated at 300 KTU</li>
+        <li>Alternate configuration:Incom 4j.4 fusial thrust engines</li>
+        <li>Hyperdrive rating: Class 1.0 No backup</li>
+        <li>Hyperdrive system: Incom GBk-585 hyperdrive unit</li>
+        <li>Power plant: Novaldex O4-Z cryogenic power cell</li>
+        <li>Ionization reactor Shielding: Chempat "Defender" deflector shield generator (rated 50 SBD)</li>
+       </ul>
+     </div>
+     <div class="col-3">
+       <h4> </h4><br>
+       <ul>
+        <li>Hull: Titanium alloy hull (rated 20 RU)</li>
+        <li>Targeting systems: Fabritech ANq 3.6 tracking computer and IN-344-B "Sightline" holographic imaging system</li>
+        <li>Navigation system: None, Astromech droid (normally programmed for 10 jumps)</li>
+        <li>Avionics: Torplex Rq8.Y flight computer</li>
+        <li>Countermeasures: Aft chaff/flare launcher</li>
+        <li>Armament: Taim &amp; Bak KX9 or IX4 laser cannons (4) Krupx MG7 proton torpedo launchers (2) 3 torpedoes each</li>
+        <li>Crew: Pilot (1), Astromech droid (1)</li>
+        <li>Passengers: None</li>
+        <li>Cargo capacity: 110 kilograms Consumables: 1 week, but extendable by outer pods</li>
+        <li>Life support: Equipped Communication systems: Equipped Other systems: S-foils (2), Inertial compensato.</li>
+      </ul>
+     
+     </div>
+</div>
+   </div>
+ </div>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+ 
+  $(document).ready(function() {
+    $("#start").click(function() {
+        // start button is clicked
+        $(this).toggleClass("toggled");
+        $('body').toggleClass("started").toggleClass("return-to-base");
+        // ------------------------------ 
+    });
+    $("#open-fire").click(function() {
+        // open fire button is clicked
+        $(this).toggleClass("toggled");
+        $('body').toggleClass("firing");
+        // ------------------------------ 
+    });
+    $("#break").click(function() {
+        // open fire button is clicked
+        $(this).toggleClass("toggled");
+        $('.spacecraft').toggleClass("break");
+        // ------------------------------ 
+    });
+    $(".modal-toggle").click(function() {
+        // modalbox button is clicked
+        $(this).toggleClass("toggled");
+        $('body').toggleClass("show-modalbox");
+        // ------------------------------ 
+    });
+  });
+</script>
+</body>
+</html>
